@@ -1,13 +1,15 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     @vite(['resources/js/app.js', 'resources/css/app.css'])
     <title>Pixel Positions</title>
 </head>
-<body class="bg-black">
-    
+
+<body class="bg-black pb-16">
+
     <div class="px-10 text-white">
         <nav class="flex justify-between items-center py-4 border-b border-white/10">
             <div class="">
@@ -23,9 +25,18 @@
                 <a href="#">Companies</a>
             </div>
 
+            @auth
             <div class="">
                 <a href="#">Post a job</a>
             </div>
+            @endauth
+
+            @guest
+            <div class="space-x-6">
+                <a href="{{ route('login') }}">Login</a>
+                <a href="{{ route('register') }}">Sign Up</a>
+            </div>
+            @endguest
         </nav>
 
         <main class="mt-10 mx-w-[986px]">
@@ -35,4 +46,5 @@
 
 
 </body>
+
 </html>

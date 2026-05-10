@@ -7,16 +7,16 @@
                 Let's Find Your Next Job
             </h1>
 
-            <form action="" class="mt-6">
-                <input type="text" name="" placeholder="Web developer" class="rounded-xl bg-white/5 border-white/10 w-full px-5 py-4 max-w-xl">
-            </form>
+            <x-forms.form action="/search" class="mt-6">
+                <x-forms.input :label="false" name="search" placeholder="Web developer" class="rounded-xl bg-white/5 border-white/10 w-full px-5 py-4 max-w-xl" />
+            </x-forms.form>
 
         </section>
 
         <!-- // Featured Jobs Section -->
         <section class="pt-10">
             <x-section-heading>
-                Feature Jobs
+                Featured Jobs
             </x-section-heading>
 
             <div class="grid grid-cols-3 gap-8 mt-6">
