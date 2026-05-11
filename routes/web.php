@@ -20,6 +20,8 @@ Route::get('/teachers', [JobController::class, 'teachers'])->name('jobs.teachers
 
 
 Route::get('/books', [JobController::class, 'books'])->name('jobs.books');
+Route::get('/academic', [JobController::class, 'academic'])->name('jobs.academic');
+Route::get('/hadith', [JobController::class, 'books'])->name('jobs.hadith');
 
 Route::get('/search', SearchController::class);
 

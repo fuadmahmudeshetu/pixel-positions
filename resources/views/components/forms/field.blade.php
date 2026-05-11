@@ -1,11 +1,11 @@
 @props(['label', 'name'])
 
-<div>
+<div class="space-y-1 sm:space-y-2">
     @if ($label)
         <x-forms.label :$name :$label />
     @endif
 
-    <div class="mt-1">
+    <div>
         {{ $slot }}
 
         <x-forms.error :error="$errors->first($name)" />

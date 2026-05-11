@@ -1,3 +1,3 @@
 <div>
-    <div class="bg-white/10 my-10 h-px w-full"></div>
+    <div class="my-6 h-px w-full bg-white/10 sm:my-10"></div>
 </div>

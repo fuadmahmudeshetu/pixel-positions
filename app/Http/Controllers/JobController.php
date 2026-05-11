@@ -59,6 +59,11 @@ class JobController extends Controller
         ]);
     }
 
+    public function academic()
+    {
+        return view('jobs.academic');
+    }
+
     public function books()
     {
         return view('jobs.books');

@@ -18,6 +18,7 @@
                 </a>
 
                 <div class="hidden items-center gap-6 font-bold md:flex">
+                    <a href="/" class="hover:text-cyan-400">Home</a>
                     <a href="/teachers" class="hover:text-cyan-400">Teachers</a>
                     <a href="/books" class="hover:text-cyan-400">Quran</a>
                     <a href="/academic" class="hover:text-cyan-400">Academic</a>
@@ -52,6 +53,7 @@
 
                     <div class="absolute right-4 top-16 z-50 w-[min(90vw,20rem)] rounded-xl border border-white/10 bg-black/95 p-4 shadow-2xl shadow-black/60 sm:right-6">
                         <div class="grid gap-3 text-sm font-semibold">
+                            <a href="/" class="hover:text-cyan-400">Home</a>
                             <a href="/teachers" class="hover:text-cyan-400">Teachers</a>
                             <a href="/books" class="hover:text-cyan-400">Quran</a>
                             <a href="/academic" class="hover:text-cyan-400">Academic</a>

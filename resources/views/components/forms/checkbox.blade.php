@@ -10,9 +10,9 @@
 @endphp
 
 <x-forms.field :$label :$name>
-    <div class="rounded-xl bg-white/10 border border-white/10 px-5 py-4 w-full">
-        <input {{ $attributes($defaults) }}>
-        <span class="pl-1">{{ $label }}</span>
+    <div class="flex w-full items-start gap-3 rounded-xl border border-white/10 bg-white/10 px-4 py-3 sm:px-5 sm:py-4">
+        <input {{ $attributes($defaults) }} class="mt-1 shrink-0">
+        <span class="text-sm leading-6 sm:text-base">{{ $label }}</span>
     </div>
 </x-forms.field>
 
