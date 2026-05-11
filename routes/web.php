@@ -16,6 +16,11 @@ Route::post('/jobs', [JobController::class, 'store'])
     ->middleware('auth')
     ->name('jobs.store');
 
+Route::get('/teachers', [JobController::class, 'teachers'])->name('jobs.teachers');
+
+
+Route::get('/books', [JobController::class, 'books'])->name('jobs.books');
+
 Route::get('/search', SearchController::class);
 
 Route::get('/tags/{tag:name}', TagController::class);

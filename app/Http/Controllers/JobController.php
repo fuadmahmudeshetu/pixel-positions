@@ -18,14 +18,50 @@ class JobController extends Controller
      */
     public function index()
     {
-        $jobs = Job::latest()->get()->groupBy('featured');
+        $featuredJobs = Job::where('featured', 1)
+            ->latest()
+            ->simplePaginate(6, ['*'], 'featured_page')
+            ->withQueryString()
+            ->fragment('featured-jobs');
+
+        $jobs = Job::where('featured', 0)
+            ->latest()
+            ->simplePaginate(6, ['*'], 'jobs_page')
+            ->withQueryString()
+            ->fragment('recent-jobs');
 
 
         return view('jobs.index', [
-            'featuredJobs' => $jobs[1],
-            'jobs' => $jobs[0],
+            'featuredJobs' => $featuredJobs,
+            'jobs' => $jobs,
             'tags' => Tag::all()
         ]);
+    }
+
+    public function teachers()
+    {
+        $featuredJobs = Job::where('featured', 1)
+            ->latest()
+            ->simplePaginate(6, ['*'], 'featured_page')
+            ->withQueryString()
+            ->fragment('featured-jobs');
+
+        $jobs = Job::where('featured', 0)
+            ->latest()
+            ->simplePaginate(6, ['*'], 'jobs_page')
+            ->withQueryString()
+            ->fragment('recent-jobs');
+
+        return view('jobs.teachers', [
+            'featuredJobs' => $featuredJobs,
+            'jobs' => $jobs,
+            'tags' => Tag::all()
+        ]);
+    }
+
+    public function books()
+    {
+        return view('jobs.books');
     }
 
     /**
