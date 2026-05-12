@@ -12,12 +12,14 @@ Route::get('/', [JobController::class, 'index']);
 Route::get('/jobs/create', [JobController::class, 'create'])
     ->middleware('auth')
     ->name('jobs.create');
-    
+
 Route::post('/jobs', [JobController::class, 'store'])
     ->middleware('auth')
     ->name('jobs.store');
 
 Route::get('/teachers', [JobController::class, 'teachers'])->name('jobs.teachers');
+
+Route::get('/admin/dashboard', [JobController::class, 'index'])->name('admin.dashboard');
 
 
 Route::get('/books', [JobController::class, 'books'])->name('jobs.books');

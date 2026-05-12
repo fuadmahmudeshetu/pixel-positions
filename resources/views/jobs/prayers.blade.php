@@ -37,7 +37,7 @@
                 <!-- 1. Fajr -->
                 <div class="rounded-2xl bg-black/70 border border-white/10 overflow-hidden transition-all duration-300 hover:-translate-y-1 hover:border-cyan-400/30 group shadow-lg shadow-black/30">
                     <div class="px-5 py-4 bg-white/5 border-b border-white/10 flex justify-between items-center">
-                        <span class="text-cyan-400 text-xs font-bold uppercase tracking-widest text-emerald-400">Dawn • 2 Rak'ahs</span>
+                        <span class="text-xs font-bold uppercase tracking-widest text-emerald-400">Dawn • 2 Rak'ahs</span>
                         <span class="text-white/40 text-[10px] font-mono">FAJR</span>
                     </div>
                     <div class="p-6 space-y-4">
@@ -115,7 +115,7 @@
                         <span class="text-white/40 text-xs font-bold uppercase tracking-widest">Sunnah Mu'akkadah</span>
                         <span class="text-white/20 text-[10px] font-mono">WITR</span>
                     </div>
-                    <div class="p-6 flex flex-col items-center justify-center text-center space-y-3 h-full min-h-[200px]">
+                    <div class="p-6 flex flex-col items-center justify-center text-center space-y-3 h-full min-h-50">
                         <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 text-white/20" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z" />
                         </svg>
