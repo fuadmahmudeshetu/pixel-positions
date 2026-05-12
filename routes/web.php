@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AdminController;
 use App\Http\Controllers\JobController;
 use App\Http\Controllers\RegisterUserController;
 use App\Http\Controllers\SearchController;
@@ -19,8 +20,8 @@ Route::post('/jobs', [JobController::class, 'store'])
 
 Route::get('/teachers', [JobController::class, 'teachers'])->name('jobs.teachers');
 
-Route::get('/admin/dashboard', [JobController::class, 'index'])->name('admin.dashboard');
-
+Route::get('/admin/dashboard', [AdminController::class, 'index'])->name('admin.dashboard');
+Route::get('/admin/users', [AdminController::class, 'users'])->name('admin.users');
 
 Route::get('/books', [JobController::class, 'books'])->name('jobs.books');
 Route::get('/academic', [JobController::class, 'academic'])->name('jobs.academic');
