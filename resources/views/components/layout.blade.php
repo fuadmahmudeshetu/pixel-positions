@@ -8,7 +8,7 @@
     <title>Pixel Positions</title>
 </head>
 
-<body class="bg-black pb-16">
+<body class="bg-black pb-0">
 
     <div class="px-4 text-white sm:px-6 lg:px-10">
         <nav class="border-b border-white/10 py-4">
@@ -86,9 +86,9 @@
         <main class="mx-auto mt-10 max-w-6xl">
             {{ $slot }}
         </main>
+
+        <x-footer />
     </div>
-
-
 </body>
 
 </html>

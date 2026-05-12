@@ -60,6 +60,8 @@ class RegisterUserController extends Controller
     {
         $userAttribute = $request->validate([
             'name' => 'required|string|max:255',
+            'phone_number' => 'required|string|unique:users',
+            'national_id' => 'required|string|unique:users',
             'email' => 'required|string|email|max:255|unique:users',
             'password' => 'required|string|min:8|confirmed',
         ]);

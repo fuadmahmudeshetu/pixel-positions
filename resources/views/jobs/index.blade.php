@@ -12,7 +12,12 @@
             </h1>
 
             <x-forms.form action="/search" class="mt-5 sm:mt-6">
-                <x-forms.input :label="false" name="search" placeholder="Search teachers..." class="w-full max-w-full rounded-xl border-white/10 bg-white/5 px-4 py-3 sm:max-w-xl sm:px-5 sm:py-4" />
+                <div class="relative mx-auto max-w-xl">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="pointer-events-none absolute left-4 top-1/2 h-5 w-5 -translate-y-1/2 text-white/40" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m21 21-4.35-4.35m1.35-5.15A7.5 7.5 0 1 1 3 11.5a7.5 7.5 0 0 1 15 0Z" />
+                    </svg>
+                    <x-forms.input :label="false" name="search" placeholder="Search teachers..." class="w-full max-w-full rounded-xl border-white/10 bg-white/5 py-3 pl-12 pr-4 sm:px-5 sm:py-4 sm:pl-12" />
+                </div>
             </x-forms.form>
 
         </section>
@@ -29,7 +34,7 @@
                 @endforeach
             </div>
 
-            <div class="mt-8">
+            <div class="mt-8 flex items-center justify-center">
                 {{ $featuredJobs->links() }}
             </div>
         </section>
@@ -44,7 +49,7 @@
                 @endforeach
             </div>
 
-            <div class="mt-8 ">
+            <div class="mt-8 flex items-center justify-center">
                 {{ $jobs->links() }}
             </div>
         </section>

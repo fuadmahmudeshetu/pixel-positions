@@ -12,6 +12,7 @@ Route::get('/', [JobController::class, 'index']);
 Route::get('/jobs/create', [JobController::class, 'create'])
     ->middleware('auth')
     ->name('jobs.create');
+    
 Route::post('/jobs', [JobController::class, 'store'])
     ->middleware('auth')
     ->name('jobs.store');
@@ -22,6 +23,8 @@ Route::get('/teachers', [JobController::class, 'teachers'])->name('jobs.teachers
 Route::get('/books', [JobController::class, 'books'])->name('jobs.books');
 Route::get('/academic', [JobController::class, 'academic'])->name('jobs.academic');
 Route::get('/hadith', [JobController::class, 'books'])->name('jobs.hadith');
+Route::get('/duas', [JobController::class, 'duas'])->name('jobs.duas');
+Route::get('/prayers', [JobController::class, 'prayer'])->name('jobs.prayers');
 
 Route::get('/search', SearchController::class);
 

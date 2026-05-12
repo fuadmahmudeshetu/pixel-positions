@@ -69,6 +69,16 @@ class JobController extends Controller
         return view('jobs.books');
     }
 
+    public function duas()
+    {
+        return view('jobs.duas-card');
+    }
+
+    public function prayer()
+    {
+        return view('jobs.prayers');
+    }
+
     /**
      * Show the form for creating a new resource.
      */
