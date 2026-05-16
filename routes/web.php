@@ -20,14 +20,16 @@ Route::post('/jobs', [JobController::class, 'store'])
 
 Route::get('/teachers', [JobController::class, 'teachers'])->name('jobs.teachers');
 
-Route::get('/admin/dashboard', [AdminController::class, 'index'])->name('admin.dashboard');
-Route::get('/admin/users', [AdminController::class, 'users'])->name('admin.users');
-
-Route::get('/books', [JobController::class, 'books'])->name('jobs.books');
-Route::get('/academic', [JobController::class, 'academic'])->name('jobs.academic');
-Route::get('/hadith', [JobController::class, 'books'])->name('jobs.hadith');
-Route::get('/duas', [JobController::class, 'duas'])->name('jobs.duas');
-Route::get('/prayers', [JobController::class, 'prayer'])->name('jobs.prayers');
+Route::middleware('auth')->group(function () {
+    Route::get('/books', [JobController::class, 'books'])->name('jobs.books');
+    Route::get('/academic', [JobController::class, 'academic'])->name('jobs.academic');
+    Route::get('/hadith', [JobController::class, 'books'])->name('jobs.hadith');
+    Route::get('/duas', [JobController::class, 'duas'])->name('jobs.duas');
+    Route::get('/prayers', [JobController::class, 'prayer'])->name('jobs.prayers');
+    Route::get('/admin/jobs', [AdminController::class, 'jobs'])->name('admin.jobs');
+    Route::get('/admin/dashboard', [AdminController::class, 'index'])->name('admin.dashboard');
+    Route::get('/admin/users', [AdminController::class, 'users'])->name('admin.users');
+});
 
 Route::get('/search', SearchController::class);
 

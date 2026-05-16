@@ -6,6 +6,8 @@ use App\Models\Job;
 use App\Http\Requests\StoreJobRequest;
 use App\Http\Requests\UpdateJobRequest;
 use App\Models\Tag;
+
+use Illuminate\Auth\Authenticatable;
 use Illuminate\Http\Request;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Auth;
@@ -30,7 +32,6 @@ class JobController extends Controller
             ->withQueryString()
             ->fragment('recent-jobs');
 
-
         return view('jobs.index', [
             'featuredJobs' => $featuredJobs,
             'jobs' => $jobs,
@@ -40,12 +41,14 @@ class JobController extends Controller
 
     public function teachers()
     {
+
         $featuredJobs = Job::where('featured', 1)
             ->latest()
-            ->simplePaginate(6, ['*'], 'featured_page')
+            ->simplePaginate(6, ['*'], 'jobs_page')
             ->withQueryString()
             ->fragment('featured-jobs');
 
+        // Remove the ->through() part so the frontend gets the real data
         $jobs = Job::where('featured', 0)
             ->latest()
             ->simplePaginate(6, ['*'], 'jobs_page')

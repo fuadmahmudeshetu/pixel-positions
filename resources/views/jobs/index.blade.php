@@ -54,6 +54,5 @@
             </div>
         </section>
 
-
     </div>
 </x-layout>

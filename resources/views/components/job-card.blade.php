@@ -5,24 +5,26 @@
 
     <div class="py-5 sm:py-7">
         <h3 class="text-lg font-bold leading-snug transition-colors duration-300 group-hover:text-blue-800 sm:text-xl">
-            <a href="{{ $job->url }}" class="underline decoration-white/40 underline-offset-4 hover:decoration-white" target="_blank" rel="noopener noreferrer">
+            <a href="{{ $job->url }}" class="underline decoration-white/40 underline-offset-4 hover:decoration-white"
+               target="_blank" rel="noopener noreferrer">
                 {{ $job->title }}
             </a>
         </h3>
         <p class="mt-3 text-xs text-white/75 sm:mt-4 sm:text-sm">Addis Ababa, Furi</p>
         <p class="mt-2">{{ $job->salary }}</p>
-        <p>{{ $job->employer->user->phone_number }}</p>
-    </div>
 
-    <div class="mt-auto flex items-center justify-between gap-3 pt-2">
-        <div class="flex min-w-0 flex-1 items-center gap-2 overflow-x-auto whitespace-nowrap">
-            @foreach($job->tags as $tag)
-                <x-tag :$tag size="small">Laravel</x-tag>
-            @endforeach
-        </div>
+        <x-phone-number :job="$job"/>
 
-        <div class="shrink-0 self-center">
-            <x-employer-logo :width="42"/>
+        <div class="mt-auto flex items-center justify-between gap-3 pt-2">
+            <div class="flex min-w-0 flex-1 items-center gap-2 overflow-x-auto whitespace-nowrap">
+                @foreach($job->tags as $tag)
+                    <x-tag :$tag size="small">Laravel</x-tag>
+                @endforeach
+            </div>
+
+            <div class="shrink-0 self-center">
+                <x-employer-logo :width="42"/>
+            </div>
         </div>
     </div>
 </x-panel>

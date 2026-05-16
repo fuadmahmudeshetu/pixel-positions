@@ -2,14 +2,23 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Employer;
+use App\Models\Job;
 use App\Models\User;
-use Illuminate\Http\Request;
 
 class AdminController extends Controller
 {
     public function index()
     {
-        return view('admin.dashboard');
+        $jobs = Job::all()->count();
+        $users = User::all()->count();
+        $employers = Employer::all()->count();
+
+        return view('admin.dashboard', [
+            'jobs' => $jobs,
+            'users' => $users,
+            'employers' => $employers
+        ]);
     }
 
     public function users()
@@ -19,5 +28,18 @@ class AdminController extends Controller
         return view('admin.users', [
             'users' => $users
         ]);
+    }
+
+    public function jobs() {
+
+        $jobs = Job::with('employer.user')->latest()->get();
+        return view('admin.jobs',[
+            'jobs' => $jobs
+        ]);
+    }
+
+    public function dashboard()
+    {
+        return view('layouts.admin');
     }
 }
