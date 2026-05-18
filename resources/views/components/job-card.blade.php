@@ -1,7 +1,7 @@
 @props(['job'])
 
 <x-panel class="flex h-full flex-col p-4 text-left sm:p-5">
-    <div class="self-start text-xs text-white/70 sm:text-sm">{{ $job->employer->name }}</div>
+    <div class="self-start text-xs text-white/70 sm:text-sm">{{ $job->employer?->name ?? 'Unknown Employer' }}</div>
 
     <div class="py-5 sm:py-7">
         <h3 class="text-lg font-bold leading-snug transition-colors duration-300 group-hover:text-blue-800 sm:text-xl">

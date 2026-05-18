@@ -1,7 +1,7 @@
 <x-panel class="flex flex-col gap-4 p-4 sm:p-5">
     <div class="flex flex-1 flex-col">
 
-        <a href="#" class="self-start text-xs text-gray-400 sm:text-sm">{{ $job->employer->name }}</a>
+        <a href="#" class="self-start text-xs text-gray-400 sm:text-sm">{{ $job->employer?->name ?? 'Unknown Employer' }}</a>
 
         <h3 class="text-lg font-bold leading-snug transition-colors duration-300 group-hover:text-blue-800 sm:text-xl">
             <a href="{{ $job->url }}" class="underline decoration-white/40 underline-offset-4 hover:decoration-white"

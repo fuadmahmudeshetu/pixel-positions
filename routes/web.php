@@ -8,17 +8,16 @@ use App\Http\Controllers\SessionController;
 use App\Http\Controllers\TagController;
 use Illuminate\Support\Facades\Route;
 
-Route::get('/', [JobController::class, 'index']);
+Route::controller(JobController::class)->group(function () {
+    Route::get('/', 'index')->name('home');
+    Route::get('/jobs', 'index')->name('jobs.index');
+    Route::get('/teachers', 'teachers')->name('jobs.teachers');
+});
 
-Route::get('/jobs/create', [JobController::class, 'create'])
-    ->middleware('auth')
-    ->name('jobs.create');
-
-Route::post('/jobs', [JobController::class, 'store'])
-    ->middleware('auth')
-    ->name('jobs.store');
-
-Route::get('/teachers', [JobController::class, 'teachers'])->name('jobs.teachers');
+Route::middleware('auth')->controller(JobController::class)->group(function () {
+    Route::get('/jobs/create', 'create')->name('jobs.create');
+    Route::post('/jobs', 'store')->name('jobs.store');
+});
 
 Route::middleware('auth')->group(function () {
     Route::get('/books', [JobController::class, 'books'])->name('jobs.books');
@@ -26,9 +25,17 @@ Route::middleware('auth')->group(function () {
     Route::get('/hadith', [JobController::class, 'books'])->name('jobs.hadith');
     Route::get('/duas', [JobController::class, 'duas'])->name('jobs.duas');
     Route::get('/prayers', [JobController::class, 'prayer'])->name('jobs.prayers');
-    Route::get('/admin/jobs', [AdminController::class, 'jobs'])->name('admin.jobs');
-    Route::get('/admin/dashboard', [AdminController::class, 'index'])->name('admin.dashboard');
-    Route::get('/admin/users', [AdminController::class, 'users'])->name('admin.users');
+    Route::prefix('admin')->name('admin.')->controller(AdminController::class)->group(function () {
+        Route::get('/dashboard', 'index')->name('dashboard');
+        Route::get('/jobs', 'jobs')->name('jobs');
+
+        Route::prefix('users')->name('users.')->group(function () {
+            Route::get('/', 'users')->name('');
+            Route::get('/{user}/edit', 'edit')->name('edit');
+            Route::patch('/{user}', 'update')->name('update');
+            Route::delete('/{user}', 'destroy')->name('destroy');
+        });
+    });
 });
 
 Route::get('/search', SearchController::class);

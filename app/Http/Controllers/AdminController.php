@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Employer;
 use App\Models\Job;
 use App\Models\User;
+use Illuminate\Http\Request;
 
 class AdminController extends Controller
 {
@@ -33,6 +34,7 @@ class AdminController extends Controller
     public function jobs() {
 
         $jobs = Job::with('employer.user')->latest()->get();
+
         return view('admin.jobs',[
             'jobs' => $jobs
         ]);
@@ -41,5 +43,31 @@ class AdminController extends Controller
     public function dashboard()
     {
         return view('layouts.admin');
+    }
+
+    public function edit(User $user)
+    {
+        return view('admin.users.edit', [
+            'user' => $user,
+        ]);
+    }
+
+    public function update(Request $request, User $user)
+    {
+        $validated = $request->validate([
+            'name' => ['required', 'string', 'max:255'],
+            'email' => ['required', 'email', 'max:255', 'unique:users,email,' . $user->id],
+            'phone_number' => ['nullable', 'string', 'max:30'],
+        ]);
+
+        $user->update($validated);
+
+        return redirect()->route('admin.users')->with('success', 'User updated successfully.');
+    }
+
+    public function destroy (User $user) {
+        $user->delete();
+
+        return redirect('/admin/users');
     }
 }

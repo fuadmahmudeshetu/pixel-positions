@@ -33,10 +33,10 @@
                                 <div class="flex items-center gap-3">
                                     <div class="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-linear-to-br from-cyan-500 to-blue-600 text-sm font-bold text-white shadow-lg shadow-cyan-500/20">
                                         {{-- Initial of the User's Name --}}
-                                        {{ strtoupper(substr($job->employer->user->name, 0, 1)) }}
+                                        {{ strtoupper(substr($job->employer?->user?->name ?? 'Deleted', 0, 1)) }}
                                     </div>
                                     <span class="font-semibold text-gray-100 group-hover:text-cyan-400">
-                                        {{ $job->employer->user->name }}
+                                        {{ $job->employer?->user?->name ?? 'Deleted User' }}
                                     </span>
                                 </div>
                             </td>
@@ -72,10 +72,10 @@
                     <div class="p-5 hover:bg-white/2">
                         <div class="flex items-center gap-4 mb-5">
                             <div class="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl bg-cyan-500/10 text-lg font-bold text-cyan-400 border border-cyan-500/20">
-                                {{ strtoupper(substr($job->employer->user->name, 0, 1)) }}
+                                {{ strtoupper(substr($job->employer?->user?->name?? 'Deleted User' , 0, 1)) }}
                             </div>
                             <div class="flex flex-col">
-                                <span class="text-base font-bold text-white">{{ $job->employer->user->name }}</span>
+                                <span class="text-base font-bold text-white">{{ $job->employer?->user?->name ?? 'Deleted User' }}</span>
                                 <span class="text-xs text-cyan-500/80">{{ $job->title }}</span>
                             </div>
                         </div>
@@ -83,11 +83,11 @@
                         <div class="grid grid-cols-2 gap-y-4 text-sm">
                             <div class="flex flex-col gap-1">
                                 <span class="text-[10px] uppercase tracking-tighter text-gray-500">Employer Email</span>
-                                <span class="text-gray-300 break-all">{{ $job->employer->user->email }}</span>
+                                <span class="text-gray-300 break-all">{{ $job->employer?->user?->email ?? 'Deleted User Email' }}</span>
                             </div>
                             <div class="flex flex-col gap-1 text-right">
                                 <span class="text-[10px] uppercase tracking-tighter text-gray-500">Phone</span>
-                                <span class="text-gray-300">{{ $job->employer->user->phone_number ?? 'N/A' }}</span>
+                                <span class="text-gray-300">{{ $job->employer?->user?->phone_number ?? 'Deleted User Phone Number', 'N/A' }}</span>
                             </div>
                         </div>
 

@@ -2,9 +2,16 @@
 
 @php
 
-$formattedNumber = ltrim($job->employer->user->phone_number, '0')
+$phoneNumber = $job->employer?->user?->phone_number;
+$formattedNumber = $phoneNumber ? ltrim($phoneNumber, '0') : null;
 
 @endphp
+
+@if(!$phoneNumber)
+    <div class="flex items-center gap-4">
+        <span>N/A</span>
+    </div>
+@else
 
 <div class="flex items-center gap-4"
      x-data="{
@@ -14,11 +21,11 @@ $formattedNumber = ltrim($job->employer->user->phone_number, '0')
 
     <a>
         <template x-if="!show">
-            <span>{{ Str::mask($job->employer->user->phone_number, '*', 4, -2) }}</span>
+            <span>{{ Str::mask($phoneNumber, '*', 4, -2) }}</span>
         </template>
 
         <template x-if="show">
-            <span>{{ $job->employer->user->phone_number }}</span>
+            <span>{{ $phoneNumber }}</span>
         </template>
     </a>
 
@@ -31,3 +38,4 @@ $formattedNumber = ltrim($job->employer->user->phone_number, '0')
     </button>
 
 </div>
+@endif
