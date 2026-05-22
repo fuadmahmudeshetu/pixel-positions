@@ -26,5 +26,11 @@
                 <x-employer-logo :width="42"/>
             </div>
         </div>
+
+        <div class="flex items-center justify-between border-t border-white/5 pt-4 mt-auto">
+            <span class="text-xs text-white/40">
+                Posted {{ $job->created_at->diffForHumans() }}
+            </span>
+        </div>
     </div>
 </x-panel>

@@ -25,6 +25,7 @@
             @auth
                 @unless(auth()->user()->is_admin)
                     <a href="/jobs/create" class="hover:text-cyan-400">Post a job</a>
+                    <a href="/profile" class="hover:text-cyan-400">Profile</a>
                 @endunless
 
                 <form action="/logout" method="POST">
@@ -32,6 +33,7 @@
                     @method('DELETE')
                     <button type="submit" class="cursor-pointer text-blue-500 hover:text-blue-700">Logout</button>
                 </form>
+
             @endauth
 
             @guest
