@@ -62,12 +62,25 @@ class AdminController extends Controller
 
         $user->update($validated);
 
-        return redirect()->route('admin.users')->with('success', 'User updated successfully.');
+        return redirect()->route('admin.users.')->with('success', 'User updated successfully.');
     }
 
     public function destroy (User $user) {
         $user->delete();
 
         return redirect('/admin/users');
+    }
+
+    public function approve(Job $job) {
+
+        $job->is_approved = !$job->is_approved;
+        $job->save();
+
+        return redirect()->back()->with(
+            'success',
+            $job->is_approved
+                ? 'Job approved successfully.'
+                : 'Job unapproved successfully.'
+        );
     }
 }

@@ -18,6 +18,7 @@ return new class extends Migration
             $table->string('title');
             $table->string('salary');
             $table->string('location');
+            $table->boolean('is_approved')->default(false);
             $table->string('schedule')->default('Full time');
             $table->string('url');
             $table->boolean('featured')->default(false);

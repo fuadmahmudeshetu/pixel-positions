@@ -21,12 +21,14 @@ class JobController extends Controller
     public function index()
     {
         $featuredJobs = Job::where('featured', 1)
+            ->where('is_approved', 1)
             ->latest()
             ->simplePaginate(6, ['*'], 'featured_page')
             ->withQueryString()
             ->fragment('featured-jobs');
 
         $jobs = Job::where('featured', 0)
+            ->where('is_approved', 1)
             ->latest()
             ->simplePaginate(6, ['*'], 'jobs_page')
             ->withQueryString()
@@ -43,6 +45,7 @@ class JobController extends Controller
     {
 
         $featuredJobs = Job::where('featured', 1)
+            ->where('is_approved', 1)
             ->latest()
             ->simplePaginate(6, ['*'], 'jobs_page')
             ->withQueryString()
@@ -50,6 +53,7 @@ class JobController extends Controller
 
         // Remove the ->through() part so the frontend gets the real data
         $jobs = Job::where('featured', 0)
+            ->where('is_approved', 1)
             ->latest()
             ->simplePaginate(6, ['*'], 'jobs_page')
             ->withQueryString()
@@ -111,7 +115,7 @@ class JobController extends Controller
             Arr::except($attributes, 'tags')
         );
 
-        // 2. Process the tags string
+        // 2. Process the tag string
         if ($attributes['tags'] ?? false) {
             foreach (explode(',', $attributes['tags']) as $tagName) {
                 // Use firstOrCreate so you don't create duplicate tags in the DB

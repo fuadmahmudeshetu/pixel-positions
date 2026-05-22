@@ -2,7 +2,7 @@
     <div class="mx-auto max-w-3xl space-y-6">
         <div class="flex items-center justify-between gap-3">
             <h1 class="text-2xl font-bold text-white">Edit User</h1>
-            <a href="{{ route('admin.users') }}"
+            <a href="{{ route('admin.users.') }}"
                class="inline-flex items-center rounded-lg border border-white/20 px-3 py-2 text-xs font-semibold text-gray-200 transition-colors hover:bg-white/10">
                 Back to users
             </a>

@@ -16,9 +16,11 @@ class Job extends Model
         'title',
         'salary',
         'location',
+        'is_approved',
         'schedule',
         'url',
-        'featured'
+        'featured',
+        'approved'
     ];
 
 

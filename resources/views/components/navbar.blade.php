@@ -5,18 +5,27 @@
         </a>
 
         <div class="hidden items-center gap-6 font-bold md:flex">
-            <a href="/" class="hover:text-cyan-400">Home</a>
-            <a href="/teachers" class="hover:text-cyan-400">Teachers</a>
-            <a href="/books" class="hover:text-cyan-400">Quran</a>
-            <a href="/academic" class="hover:text-cyan-400">Academic</a>
-            <a href="/hadith" class="hover:text-cyan-400">Hadith</a>
-            <a href="/duas" class="hover:text-cyan-400">Du'as</a>
-            <a href="/prayers" class="hover:text-cyan-400">Prayers</a>
+            @if(auth()->check() && auth()->user()->is_admin)
+                <a href="{{ route('admin.dashboard') }}" class="hover:text-cyan-400">Dashboard</a>
+                <a href="{{ route('admin.users.') }}" class="hover:text-cyan-400">Users</a>
+                <a href="{{ route('admin.jobs') }}" class="hover:text-cyan-400">Jobs</a>
+                <a href="{{ route('home') }}" class="hover:text-cyan-400">Main Site</a>
+            @else
+                <a href="/" class="hover:text-cyan-400">Home</a>
+                <a href="/teachers" class="hover:text-cyan-400">Teachers</a>
+                <a href="/books" class="hover:text-cyan-400">Quran</a>
+                <a href="/academic" class="hover:text-cyan-400">Academic</a>
+                <a href="/hadith" class="hover:text-cyan-400">Hadith</a>
+                <a href="/duas" class="hover:text-cyan-400">Du'as</a>
+                <a href="/prayers" class="hover:text-cyan-400">Prayers</a>
+            @endif
         </div>
 
         <div class="hidden items-center gap-6 md:flex">
             @auth
-                <a href="/jobs/create" class="hover:text-cyan-400">Post a job</a>
+                @unless(auth()->user()->is_admin)
+                    <a href="/jobs/create" class="hover:text-cyan-400">Post a job</a>
+                @endunless
 
                 <form action="/logout" method="POST">
                     @csrf
@@ -40,18 +49,27 @@
 
             <div class="absolute right-4 top-16 z-50 w-[min(90vw,20rem)] rounded-xl border border-white/10 bg-black/95 p-4 shadow-2xl shadow-black/60 sm:right-6">
                 <div class="grid gap-3 text-sm font-semibold">
-                    <a href="/" class="hover:text-cyan-400">Home</a>
-                    <a href="/teachers" class="hover:text-cyan-400">Teachers</a>
-                    <a href="/books" class="hover:text-cyan-400">Quran</a>
-                    <a href="/academic" class="hover:text-cyan-400">Academic</a>
-                    <a href="/hadith" class="hover:text-cyan-400">Hadith</a>
-                    <a href="/duas" class="hover:text-cyan-400">Du'as</a>
-                    <a href="/prayers" class="hover:text-cyan-400">Prayers</a>
+                    @if(auth()->check() && auth()->user()->is_admin)
+                        <a href="{{ route('admin.dashboard') }}" class="hover:text-cyan-400">Dashboard</a>
+                        <a href="{{ route('admin.users.') }}" class="hover:text-cyan-400">Users</a>
+                        <a href="{{ route('admin.jobs') }}" class="hover:text-cyan-400">Jobs</a>
+                        <a href="{{ route('home') }}" class="hover:text-cyan-400">Main Site</a>
+                    @else
+                        <a href="/" class="hover:text-cyan-400">Home</a>
+                        <a href="/teachers" class="hover:text-cyan-400">Teachers</a>
+                        <a href="/books" class="hover:text-cyan-400">Quran</a>
+                        <a href="/academic" class="hover:text-cyan-400">Academic</a>
+                        <a href="/hadith" class="hover:text-cyan-400">Hadith</a>
+                        <a href="/duas" class="hover:text-cyan-400">Du'as</a>
+                        <a href="/prayers" class="hover:text-cyan-400">Prayers</a>
+                    @endif
 
                     <div class="my-1 h-px bg-white/10"></div>
 
                     @auth
-                        <a href="/jobs/create" class="hover:text-cyan-400">Post a job</a>
+                        @unless(auth()->user()->is_admin)
+                            <a href="/jobs/create" class="hover:text-cyan-400">Post a job</a>
+                        @endunless
 
                         <form action="/logout" method="POST">
                             @csrf

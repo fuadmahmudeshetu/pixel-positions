@@ -25,9 +25,12 @@ Route::middleware('auth')->group(function () {
     Route::get('/hadith', [JobController::class, 'books'])->name('jobs.hadith');
     Route::get('/duas', [JobController::class, 'duas'])->name('jobs.duas');
     Route::get('/prayers', [JobController::class, 'prayer'])->name('jobs.prayers');
-    Route::prefix('admin')->name('admin.')->controller(AdminController::class)->group(function () {
+});
+
+Route::middleware(['auth', 'admin'])->prefix('admin')->name('admin.')->controller(AdminController::class)->group(function () {
         Route::get('/dashboard', 'index')->name('dashboard');
         Route::get('/jobs', 'jobs')->name('jobs');
+        Route::patch('/jobs/{job}/approve', 'approve')->name('jobs.approve');
 
         Route::prefix('users')->name('users.')->group(function () {
             Route::get('/', 'users')->name('');
@@ -35,7 +38,6 @@ Route::middleware('auth')->group(function () {
             Route::patch('/{user}', 'update')->name('update');
             Route::delete('/{user}', 'destroy')->name('destroy');
         });
-    });
 });
 
 Route::get('/search', SearchController::class);
