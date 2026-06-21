@@ -29,6 +29,9 @@ Route::middleware('auth')->group(function () {
     Route::get('/hadith', [JobController::class, 'books'])->name('jobs.hadith');
     Route::get('/duas', [JobController::class, 'duas'])->name('jobs.duas');
     Route::get('/prayers', [JobController::class, 'prayer'])->name('jobs.prayers');
+    Route::get('/jobs/{job}/edit', [JobController::class, 'edit'])->name('jobs.edit');
+    Route::patch('/jobs/{job}', [JobController::class, 'update'])->name('jobs.update');
+    Route::delete('/jobs/{job}', [JobController::class, 'destroy'])->name('jobs.destroy');
 });
 
 Route::middleware(['auth', 'admin'])->prefix('admin')->name('admin.')->controller(AdminController::class)->group(function () {

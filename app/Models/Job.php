@@ -19,8 +19,8 @@ class Job extends Model
         'is_approved',
         'schedule',
         'url',
+        'status',
         'featured',
-        'approved'
     ];
 
 

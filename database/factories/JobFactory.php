@@ -26,6 +26,7 @@ class JobFactory extends Factory
             'is_approved' => false,
             'schedule' => 'Full-time',
             'url' => fake()->url(),
+            'status' => 'pending',
             'featured' => false,
         ];
     }

@@ -12,7 +12,7 @@
                         <svg xmlns="http://www.w3.org/2000/svg" class="h-3 w-3" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4" />
                         </svg>
-                        {{ $user->employer->company_name ?? 'Employer Profile' }}
+                        {{ $user->employer->name ?? 'Employer Profile' }}
                     </div>
                 @endif
             </div>
@@ -35,25 +35,48 @@
             @forelse ($jobs as $job)
                 <div class="bg-white/5 border border-white/10 hover:border-cyan-400/50 transition-all duration-300 rounded-xl p-5 flex flex-col justify-between group">
                     <div>
-                        <div class="flex justify-between items-start gap-2 mb-2">
-                            <h4 class="text-lg font-bold text-white group-hover:text-cyan-400 transition-colors duration-200">
+                        <!-- Title & Status Container -->
+                        <div class="flex justify-between items-start gap-4 mb-3">
+                            <h4 class="text-lg font-bold text-white group-hover:text-cyan-400 transition-colors duration-200 flex-1">
                                 {{ $job->title }}
                             </h4>
+                            
+                            <!-- Dynamic Status Badge -->
+                            <span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-xs font-medium tracking-wide border whitespace-nowrap
+                                {{ $job->status === 'pending' ? 'bg-amber-500/10 text-amber-400 border-amber-500/20' : '' }}
+                                {{ in_array($job->status, ['active', 'approved']) ? 'bg-emerald-500/10 text-emerald-400 border-emerald-500/20' : '' }}
+                                {{ !in_array($job->status, ['pending', 'active', 'approved']) ? 'bg-white/5 text-white/60 border-white/10' : '' }}">
+                                
+                                <!-- Status Indicator Dot -->
+                                <span class="h-1.5 w-1.5 rounded-full 
+                                    {{ $job->status === 'pending' ? 'bg-amber-400 animate-pulse' : '' }}
+                                    {{ in_array($job->status, ['active', 'approved']) ? 'bg-emerald-400' : '' }}
+                                    {{ !in_array($job->status, ['pending', 'active', 'approved']) ? 'bg-white/40' : '' }}">
+                                </span>
+                                
+                                {{ ucfirst($job->status) }}
+                            </span>
                         </div>
+                        
                         <p class="text-white/70 text-sm leading-relaxed mb-4">
-                            {{ Str::limit($job->description, 120) }}
+                            {{ Str::limit($job->salary, 120) }}
                         </p>
                     </div>
 
+                    <!-- Card Footer Actions -->
                     <div class="flex items-center justify-between border-t border-white/5 pt-4 mt-auto">
                         <span class="text-xs text-white/40">
                             Posted {{ $job->created_at->diffForHumans() }}
                         </span>
 
                         <div class="flex items-center gap-3 text-sm">
-                            <a href="/jobs/{{ $job->id }}" class="text-white/60 hover:text-white transition duration-150">
-                                View
-                            </a>
+                            <form action="/jobs/{{ $job->id }}" method="POST">
+                                @csrf
+                                @method('DELETE')
+                                <button type="submit" class="text-red-500 hover:text-red-400 transition duration-150 cursor-pointer">
+                                    Delete
+                                </button>
+                            </form>
                             <a href="/jobs/{{ $job->id }}/edit" class="text-cyan-400 hover:text-cyan-300 font-medium transition duration-150">
                                 Edit
                             </a>

@@ -21,6 +21,11 @@ return new class extends Migration
             $table->boolean('is_approved')->default(false);
             $table->string('schedule')->default('Full time');
             $table->string('url');
+            $table->enum('status', [
+                'pending',
+                'approved',
+                'rejected',
+            ])->default('pending');
             $table->boolean('featured')->default(false);
             $table->timestamps();
         });

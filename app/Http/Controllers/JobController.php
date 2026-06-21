@@ -8,6 +8,7 @@ use App\Http\Requests\UpdateJobRequest;
 use App\Models\Tag;
 
 use Illuminate\Auth\Authenticatable;
+use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Illuminate\Http\Request;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Auth;
@@ -15,6 +16,7 @@ use Illuminate\Validation\Rule;
 
 class JobController extends Controller
 {
+    use AuthorizesRequests;
     /**
      * Display a listing of the resource.
      */
@@ -140,15 +142,63 @@ class JobController extends Controller
      */
     public function edit(Job $job)
     {
-        //
+        $this->authorize('update', $job);
+        return view('jobs.edit', [
+            'job' => $job
+        ],);
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(UpdateJobRequest $request, Job $job)
+    public function update(Request $request, Job $job)
     {
-        //
+        // 1. Validate incoming form inputs
+        $validatedData = $request->validate([
+            'title'    => 'required|string|max:255',
+            'location' => 'required|string|max:255',
+            'salary'   => 'required|min:0',
+            'phone'    => 'required|string', // Validates Ethiopian phone format
+            'tags'     => 'nullable|string',
+        ]);
+
+        // 2. Update the Job post fields
+        $job->update([
+            'title'    => $validatedData['title'],
+            'location' => $validatedData['location'],
+            'salary'   => $validatedData['salary'],
+        ]);
+
+        // 3. Update the phone_number directly on the associated User model
+        // This targets the exact 'phone_number' column on your users table
+        if ($job->employer && $job->employer->user) {
+            $job->employer->user->update([
+                'phone_number' => $validatedData['phone']
+            ]);
+        }
+
+        // 4. Process and sync the tag string ("quran, hadith")
+        if (!empty($validatedData['tags'])) {
+            // Explode by comma, trim empty spaces, filter out empty inputs
+            $tagNames = array_filter(array_map('trim', explode(',', $validatedData['tags'])));
+
+            $tagIds = [];
+            foreach ($tagNames as $name) {
+                // Find existing tag by name or spin up a new instance
+                $tag = Tag::firstOrCreate(['name' => mb_strtolower($name)]);
+                $tagIds[] = $tag->id;
+            }
+
+            // Sync attaches new IDs and detaches removed ones automatically
+            $job->tags()->sync($tagIds);
+        } else {
+            // If the tags field was completely cleared, wipe pivot table links
+            $job->tags()->detach();
+        }
+
+        // 5. Redirect back to the dashboard or single job card with a success message
+        return redirect()->route('jobs.index')
+            ->with('success', 'Job card updated successfully!');
     }
 
     /**
@@ -156,6 +206,9 @@ class JobController extends Controller
      */
     public function destroy(Job $job)
     {
-        //
+        $job->delete();
+
+        return redirect()->route('jobs.index')
+            ->with('success', 'Job card deleted successfully!');
     }
 }
