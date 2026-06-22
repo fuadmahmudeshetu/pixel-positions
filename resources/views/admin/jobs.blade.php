@@ -9,7 +9,7 @@
             <div class="flex items-center gap-3">
                 <span
                     class="rounded-full bg-cyan-500/10 px-3 py-1 text-xs font-medium text-cyan-400 border border-cyan-500/20">
-                    {{ $jobs->count() }} Total Jobs
+                    {{ $jobs->total() }} Total Jobs
                 </span>
             </div>
         </header>
@@ -113,6 +113,10 @@
                     @endforelse
                     </tbody>
                 </table>
+            </div>
+
+            <div class="p-6 border-t border-white/10">
+                {{ $jobs->links() }}
             </div>
 
             <!-- Enhanced Mobile View -->

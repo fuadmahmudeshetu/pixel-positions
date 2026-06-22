@@ -5,7 +5,7 @@
         </a>
 
         <div class="hidden items-center gap-6 font-bold md:flex">
-            @if(auth()->check() && auth()->user()->is_admin)
+            @if(auth()->check() && auth()->user()->role === 'admin')
                 <a href="{{ route('admin.dashboard') }}" class="hover:text-cyan-400">Dashboard</a>
                 <a href="{{ route('admin.users.') }}" class="hover:text-cyan-400">Users</a>
                 <a href="{{ route('admin.jobs') }}" class="hover:text-cyan-400">Jobs</a>
@@ -23,10 +23,13 @@
 
         <div class="hidden items-center gap-6 md:flex">
             @auth
-                @unless(auth()->user()->is_admin)
+                @if(auth()->user()->role === 'teacher' || auth()->user()->role === 'employer')
                     <a href="/jobs/create" class="hover:text-cyan-400">Post a job</a>
+                @endif
+
+                @if(auth()->user()->role !== 'admin')
                     <a href="/profile" class="hover:text-cyan-400">Profile</a>
-                @endunless
+                @endif
 
                 <form action="/logout" method="POST">
                     @csrf
@@ -51,7 +54,7 @@
 
             <div class="absolute right-4 top-16 z-50 w-[min(90vw,20rem)] rounded-xl border border-white/10 bg-black/95 p-4 shadow-2xl shadow-black/60 sm:right-6">
                 <div class="grid gap-3 text-sm font-semibold">
-                    @if(auth()->check() && auth()->user()->is_admin)
+                    @if(auth()->check() && auth()->user()->role === 'admin')
                         <a href="{{ route('admin.dashboard') }}" class="hover:text-cyan-400">Dashboard</a>
                         <a href="{{ route('admin.users.') }}" class="hover:text-cyan-400">Users</a>
                         <a href="{{ route('admin.jobs') }}" class="hover:text-cyan-400">Jobs</a>
@@ -69,9 +72,9 @@
                     <div class="my-1 h-px bg-white/10"></div>
 
                     @auth
-                        @unless(auth()->user()->is_admin)
+                        @if(auth()->user()->role === 'teacher' || auth()->user()->role === 'employer')
                             <a href="/jobs/create" class="hover:text-cyan-400">Post a job</a>
-                        @endunless
+                        @endif
 
                         <form action="/logout" method="POST">
                             @csrf

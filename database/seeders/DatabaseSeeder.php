@@ -3,6 +3,7 @@
 namespace Database\Seeders;
 
 use App\Models\User;
+use App\Models\Employer;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
@@ -15,13 +16,20 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
-        // User::factory(10)->create();
-
-        User::factory()->create([
-            'name' => 'Test User',
-            'email' => 'test@example.com',
+        // 1. Create Admin
+        User::factory()->admin()->create([
+            'name' => 'Admin User',
+            'email' => 'admin@example.com',
+            'password' => bcrypt('password'),
         ]);
 
+        // 2. Create Teachers with Jobs (Jobs have Employers, Employers have Users)
         $this->call(JobSeeder::class);
+
+        // 3. Create some Students
+        User::factory(10)->student()->create();
+
+        // 4. Create some standalone Teachers (with Employers)
+        Employer::factory(5)->create();
     }
 }

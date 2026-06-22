@@ -93,6 +93,11 @@ class JobController extends Controller
      */
     public function create()
     {
+        abort_unless(
+            auth()->user()->role === 'teacher' || auth()->user()->role === 'employer',
+            403
+        );
+
         return view('jobs.create');
     }
 
@@ -101,6 +106,11 @@ class JobController extends Controller
      */
     public function store(Request $request)
     {
+        abort_unless(
+            auth()->user()->role === 'teacher' || auth()->user()->role === 'employer',
+            403
+        );
+
         $attributes = $request->validate([
             'title' => ['required', 'string', 'max:255'],
             'salary' => ['required', 'string'], // Salary is often better as string if it includes currency/formatting

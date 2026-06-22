@@ -11,9 +11,9 @@ class AdminController extends Controller
 {
     public function index()
     {
-        $jobs = Job::all()->count();
-        $users = User::all()->count();
-        $employers = Employer::all()->count();
+        $jobs = Job::count();
+        $users = User::count();
+        $employers = Employer::count();
 
         return view('admin.dashboard', [
             'jobs' => $jobs,
@@ -24,18 +24,18 @@ class AdminController extends Controller
 
     public function users()
     {
-        $users = User::all();
+        $users = User::orderBy('id', 'desc')->paginate(10);
 
         return view('admin.users', [
             'users' => $users
         ]);
     }
 
-    public function jobs() {
+    public function jobs()
+    {
+        $jobs = Job::with('employer.user')->orderBy('id', 'desc')->paginate(10);
 
-        $jobs = Job::with('employer.user')->latest()->get();
-
-        return view('admin.jobs',[
+        return view('admin.jobs', [
             'jobs' => $jobs
         ]);
     }
@@ -57,7 +57,9 @@ class AdminController extends Controller
         $validated = $request->validate([
             'name' => ['required', 'string', 'max:255'],
             'email' => ['required', 'email', 'max:255', 'unique:users,email,' . $user->id],
-            'phone_number' => ['nullable', 'string', 'max:30'],
+            'phone_number' => ['required', 'string', 'max:30', 'unique:users,phone_number,' . $user->id],
+            'national_id' => ['required', 'string', 'max:255', 'unique:users,national_id,' . $user->id],
+            'role' => ['required', 'string', 'in:student,teacher,admin'],
         ]);
 
         $user->update($validated);
@@ -65,10 +67,11 @@ class AdminController extends Controller
         return redirect()->route('admin.users.')->with('success', 'User updated successfully.');
     }
 
-    public function destroy (User $user) {
+    public function destroy(User $user)
+    {
         $user->delete();
 
-        return redirect('/admin/users');
+        return redirect()->route('admin.users.')->with('success', 'User deleted successfully.');
     }
 
     public function approve(Job $job) {

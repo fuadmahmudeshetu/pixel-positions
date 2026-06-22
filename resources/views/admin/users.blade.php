@@ -16,7 +16,7 @@
             <div class="flex items-center gap-3">
                 <span
                     class="rounded-full bg-cyan-500/10 px-3 py-1 text-xs font-medium text-cyan-400 border border-cyan-500/20">
-                    {{ $users->count() }} Total Users
+                    {{ $users->total() }} Total Users
                 </span>
             </div>
         </header>
@@ -29,15 +29,20 @@
                 <table class="w-full min-w-200 text-left text-sm text-white">
                     <thead>
                     <tr class="border-b border-white/10 bg-white/3 text-xs uppercase tracking-widest text-gray-400">
+                        <th class="px-6 py-5 font-bold">ID</th>
                         <th class="px-6 py-5 font-bold">User Details</th>
+                        <th class="px-6 py-5 font-bold">Role</th>
+                        <th class="px-6 py-5 font-bold">National ID</th>
                         <th class="px-6 py-5 font-bold">Contact Info</th>
-                        <th class="px-6 py-5 font-bold">Phone Number</th>
                         <th class="px-6 py-5 font-bold">Action</th>
                     </tr>
                     </thead>
                     <tbody class="divide-y divide-white/5">
                     @forelse ($users as $user)
                         <tr class="group hover:bg-white/4 transition-all duration-200">
+                            <td class="px-6 py-4 text-gray-500 font-mono text-xs">
+                                #{{ $user->id }}
+                            </td>
                             <td class="px-6 py-4">
                                 <div class="flex items-center gap-3">
                                     <div
@@ -48,17 +53,24 @@
                                         class="font-semibold text-gray-100 group-hover:text-cyan-400">{{ $user->name }}</span>
                                 </div>
                             </td>
+                            <td class="px-6 py-4">
+                                <span class="inline-flex items-center rounded-full px-2.5 py-0.5 text-xs font-medium border
+                                    {{ $user->role === 'admin' ? 'bg-purple-500/10 text-purple-400 border-purple-500/20' :
+                                       ($user->role === 'teacher' ? 'bg-cyan-500/10 text-cyan-400 border-cyan-500/20' :
+                                        'bg-blue-500/10 text-blue-400 border-blue-500/20') }}">
+                                    {{ ucfirst($user->role) }}
+                                </span>
+                            </td>
+                            <td class="px-6 py-4">
+                                <span class="text-xs font-mono text-gray-400">
+                                    {{ $user->national_id ?? 'N/A' }}
+                                </span>
+                            </td>
                             <td class="px-6 py-4 text-gray-400">
                                 <div class="flex flex-col">
                                     <span>{{ $user->email }}</span>
-                                    <span class="text-[10px] text-gray-600">ID: #{{ $user->id }}</span>
+                                    <span class="text-[10px] text-gray-600">{{ $user->phone_number }}</span>
                                 </div>
-                            </td>
-                            <td class="px-6 py-4">
-                                    <span
-                                        class="inline-flex items-center rounded-md bg-white/5 px-2 py-1 text-xs font-medium text-gray-300 ring-1 ring-inset ring-white/10">
-                                        {{ $user->phone_number ?? 'N/A' }}
-                                    </span>
                             </td>
                             <td>
                                 <div class="flex items-center gap-2">
@@ -93,6 +105,10 @@
                 </table>
             </div>
 
+            <div class="p-6 border-t border-white/10">
+                {{ $users->links() }}
+            </div>
+
             <!-- Enhanced Mobile View -->
             <div class="grid grid-cols-1 divide-y divide-white/10 md:hidden">
                 @forelse ($users as $user)
@@ -104,7 +120,7 @@
                             </div>
                             <div class="flex flex-col">
                                 <span class="text-base font-bold text-white">{{ $user->name }}</span>
-                                <span class="text-xs text-gray-500">System User</span>
+                                <span class="text-xs text-gray-500">{{ ucfirst($user->role) }}</span>
                             </div>
                         </div>
 
@@ -116,6 +132,14 @@
                             <div class="flex flex-col gap-1 text-right">
                                 <span class="text-[10px] uppercase tracking-tighter text-gray-500">Phone</span>
                                 <span class="text-gray-300">{{ $user->phone_number ?? 'N/A' }}</span>
+                            </div>
+                            <div class="flex flex-col gap-1">
+                                <span class="text-[10px] uppercase tracking-tighter text-gray-500">National ID</span>
+                                <span class="text-gray-300">{{ $user->national_id ?? 'N/A' }}</span>
+                            </div>
+                            <div class="flex flex-col gap-1 text-right">
+                                <span class="text-[10px] uppercase tracking-tighter text-gray-500">ID</span>
+                                <span class="text-gray-300">#{{ $user->id }}</span>
                             </div>
                         </div>
 

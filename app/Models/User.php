@@ -13,7 +13,14 @@ use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 
-#[Fillable(['name', 'phone_number', 'national_id', 'email', 'password'])]
+#[Fillable([
+    'name',
+    'role',
+    'phone_number',
+    'national_id',
+    'email',
+    'password',
+])]
 #[Hidden(['password', 'remember_token'])]
 class User extends Authenticatable
 {
@@ -35,6 +42,18 @@ class User extends Authenticatable
 
     public function employer(): HasOne {
         return $this->hasOne(Employer::class);
+    }
+
+    public function isAdmin(): bool {
+        return $this->role === 'admin';
+    }
+
+    public function isTeacher(): bool {
+        return $this->role === 'teacher';
+    }
+
+    public function isStudent(): bool {
+        return $this->role === 'student';
     }
 
     public function jobs(): HasManyThrough

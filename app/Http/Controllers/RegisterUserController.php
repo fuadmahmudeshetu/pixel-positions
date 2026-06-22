@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Validation\Rule;
 use Illuminate\Validation\Rules\File;
 
 class RegisterUserController extends Controller
@@ -58,32 +59,34 @@ class RegisterUserController extends Controller
 
     public function store(Request $request)
     {
-        $userAttribute = $request->validate([
+        $attributes = $request->validate([
             'name' => 'required|string|max:255',
+            'role' => ['required', Rule::in(['student', 'teacher'])],
             'phone_number' => 'required|string|unique:users',
             'national_id' => 'required|string|unique:users',
             'email' => 'required|string|email|max:255|unique:users',
             'password' => 'required|string|min:8|confirmed',
+            'employer' => ['required_if:role,teacher', 'nullable', 'string', 'max:255'],
+            'logo' => ['required_if:role,teacher', 'nullable', File::types(['jpg', 'jpeg', 'png'])->max(1024)], // Max 1MB
         ]);
 
-
-        $employerAttribute = $request->validate([
-
-            'employer' => ['required', 'string', 'max:255'],
-
-            'logo' => ['required', File::types(['jpg', 'jpeg', 'png'])->max(1024)], // Max 1MB
-
+        $user = User::create([
+            'name' => $attributes['name'],
+            'role' => $attributes['role'],
+            'phone_number' => $attributes['phone_number'],
+            'national_id' => $attributes['national_id'],
+            'email' => $attributes['email'],
+            'password' => bcrypt($attributes['password']),
         ]);
 
+        if ($user->role === 'teacher') {
+            $logoPath = $request->file('logo')->store('logos', 'public');
 
-        $user = User::create($userAttribute);
-
-        $logoPath = $request->logo->store('logos');
-
-        $user->employer()->create([
-            'name' => $employerAttribute['employer'],
-            'logo' => $logoPath
-        ]);
+            $user->employer()->create([
+                'name' => $attributes['employer'],
+                'logo' => $logoPath
+            ]);
+        }
 
         return redirect()->route('login')->with('success', 'Registration successful. Please login.');
     }
