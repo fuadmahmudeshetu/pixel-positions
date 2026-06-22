@@ -52,6 +52,14 @@ class User extends Authenticatable
         return $this->role === 'teacher';
     }
 
+    public function isEmployer(): bool {
+        return $this->role === 'employer';
+    }
+
+    public function isTeacherOrEmployer(): bool {
+        return in_array($this->role, ['teacher', 'employer']);
+    }
+
     public function isStudent(): bool {
         return $this->role === 'student';
     }
@@ -59,5 +67,10 @@ class User extends Authenticatable
     public function jobs(): HasManyThrough
     {
         return $this->hasManyThrough(Job::class, Employer::class);
+    }
+
+    public function bookmarks()
+    {
+        return $this->belongsToMany(Job::class, 'bookmarks')->withTimestamps();
     }
 }

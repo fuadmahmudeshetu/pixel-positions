@@ -23,6 +23,8 @@ class Job extends Model
         'url',
         'status',
         'featured',
+        'description',
+        'rejection_reason',
     ];
 
 
@@ -34,4 +36,8 @@ class Job extends Model
         return $this->belongsTo(Employer::class);
     }
 
+    public function bookmarkedBy()
+    {
+        return $this->belongsToMany(User::class, 'bookmarks')->withTimestamps();
+    }
 }

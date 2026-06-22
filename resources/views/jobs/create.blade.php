@@ -1,10 +1,11 @@
 <x-layout>
     <x-page-heading>Create Job</x-page-heading>
 
-    <x-forms.form action="/jobs" method="POST">
+    <x-forms.form action="{{ route('jobs.store') }}" method="POST">
         <x-forms.input name="title" label="Job Title" />
         <x-forms.input name="salary" label="Salary Range" />
         <x-forms.input name="location" label="Location" />
+        <x-forms.textarea name="description" label="Description" />
 
         <x-forms.select name="schedule" label="Schedule">
             <option value="">Select Schedule</option>

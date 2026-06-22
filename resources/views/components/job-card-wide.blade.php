@@ -1,11 +1,16 @@
 <x-panel class="flex flex-col gap-4 p-4 sm:p-5">
     <div class="flex flex-1 flex-col">
 
-        <a href="#" class="self-start text-xs text-gray-400 sm:text-sm">{{ $job->employer?->name ?? 'Unknown Employer' }}</a>
+        @if($job->employer)
+            <a href="{{ route('employers.show', $job->employer->id) }}" class="self-start text-xs text-gray-400 sm:text-sm hover:underline">
+                {{ $job->employer->name }}
+            </a>
+        @else
+            <span class="self-start text-xs text-gray-400 sm:text-sm">Unknown Employer</span>
+        @endif
 
         <h3 class="text-lg font-bold leading-snug transition-colors duration-300 group-hover:text-blue-800 sm:text-xl">
-            <a href="{{ $job->url }}" class="underline decoration-white/40 underline-offset-4 hover:decoration-white"
-               target="_blank" rel="noopener noreferrer">
+            <a href="{{ route('jobs.show', $job->id) }}" class="underline decoration-white/40 underline-offset-4 hover:decoration-white">
                 {{ $job->title }}
             </a>
         </h3>
@@ -21,7 +26,7 @@
                 @endforeach
 
                 <div class="ml-auto md:ml-6 items-end md:mx-4 shrink-0">
-                    <x-employer-logo :width="48"/>
+                    <x-employer-logo :employer="$job->employer" :width="48"/>
                 </div>
             </div>
         </div>

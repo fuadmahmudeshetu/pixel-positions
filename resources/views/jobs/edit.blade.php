@@ -31,6 +31,14 @@
             </div>
 
             <div>
+                <label for="description" class="block text-sm font-medium text-gray-400">Description</label>
+                <textarea name="description" id="description" rows="5"
+                          class="w-full mt-1 p-2.5 bg-[#1e1e1e] border border-gray-700 rounded-lg text-white focus:ring-2 focus:ring-blue-500 focus:outline-none"
+                          placeholder="Describe the job requirements..." required>{{ old('description', $job->description) }}</textarea>
+                @error('description') <span class="text-xs text-red-500">{{ $message }}</span> @enderror
+            </div>
+
+            <div>
                 <label for="salary" class="block text-sm font-medium text-gray-400">Budget / Salary (ETB)</label>
                 <input type="text" name="salary" id="salary"
                        value="{{ old('salary', $job->salary) }}"

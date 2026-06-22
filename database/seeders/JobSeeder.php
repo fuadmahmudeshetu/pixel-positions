@@ -14,15 +14,26 @@ class JobSeeder extends Seeder
      */
     public function run(): void
     {
-        
-        $tags = Tag::factory(3)->create();
+        $tags = collect(['Quran', 'Arabic', 'Islamic Studies', 'Math', 'Science', 'English', 'History', 'Amharic', 'Tafsir', 'Hadith'])
+            ->map(fn($name) => Tag::firstOrCreate(['name' => $name]));
 
-        Job::factory(30)->hasAttached($tags)->create(new Sequence([
-            'featured' => false,
-            'schedule' => "Full Time",
-        ], [
-            'featured' => true,
-            'schedule' => "Part Time",
-        ]));
+        Job::factory(20)->create(new Sequence(
+            fn($sequence) => [
+                'featured' => $sequence->index % 4 === 0,
+                'is_approved' => true,
+                'status' => 'approved',
+                'schedule' => fake()->randomElement(['full-time', 'part-time', 'contract']),
+                'teaching_mode' => fake()->randomElement(['Online', 'In-person', 'Hybrid']),
+                'gender_preference' => fake()->randomElement(['Male', 'Female', 'Any']),
+            ]
+        ))->each(function ($job) use ($tags) {
+            $job->tags()->attach($tags->random(rand(1, 3))->pluck('id'));
+        });
+
+        // Add some pending jobs
+        Job::factory(5)->create([
+            'is_approved' => false,
+            'status' => 'pending',
+        ]);
     }
 }

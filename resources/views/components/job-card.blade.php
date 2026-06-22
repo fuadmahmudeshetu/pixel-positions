@@ -1,12 +1,19 @@
 @props(['job'])
 
 <x-panel class="flex h-full flex-col p-4 text-left sm:p-5">
-    <div class="self-start text-xs text-white/70 sm:text-sm">{{ $job->employer?->name ?? 'Unknown Employer' }}</div>
+    <div class="self-start text-xs text-white/70 sm:text-sm">
+        @if($job->employer)
+            <a href="{{ route('employers.show', $job->employer->id) }}" class="hover:underline">
+                {{ $job->employer->name }}
+            </a>
+        @else
+            Unknown Employer
+        @endif
+    </div>
 
     <div class="py-5 sm:py-7">
         <h3 class="text-lg font-bold leading-snug transition-colors duration-300 group-hover:text-blue-800 sm:text-xl">
-            <a href="{{ $job->url }}" class="underline decoration-white/40 underline-offset-4 hover:decoration-white"
-               target="_blank" rel="noopener noreferrer">
+            <a href="{{ route('jobs.show', $job->id) }}" class="underline decoration-white/40 underline-offset-4 hover:decoration-white">
                 {{ $job->title }}
             </a>
         </h3>
@@ -23,7 +30,7 @@
             </div>
 
             <div class="shrink-0 self-center">
-                <x-employer-logo :width="42"/>
+                <x-employer-logo :employer="$job->employer" :width="42"/>
             </div>
         </div>
 

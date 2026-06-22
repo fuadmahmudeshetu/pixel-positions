@@ -149,7 +149,8 @@
                                    class="inline-flex items-center rounded-lg bg-indigo-600 px-3 py-2 text-xs font-semibold text-white transition-colors hover:bg-indigo-500">
                                     Edit
                                 </a>
-                                <form action="{{ route('admin.users.destroy', $user->id) }}" method="POST">
+                                <form action="{{ route('admin.users.destroy', $user->id) }}" method="POST"
+                                      onsubmit="return confirm('Are you sure you want to delete this user?');">
                                     @csrf
                                     @method('DELETE')
                                     <button class="btn btn-danger bg-red-700 border-none rounded-lg p-2 cursor-pointer hover:bg-red-600 transition-colors" type="submit" title="Delete user">

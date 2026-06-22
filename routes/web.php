@@ -8,22 +8,33 @@ use App\Http\Controllers\SessionController;
 use App\Http\Controllers\TagController;
 use Illuminate\Support\Facades\Route;
 
-Route::controller(JobController::class)->group(function () {
-    Route::get('/', 'index')->name('home');
-    Route::get('/jobs', 'index')->name('jobs.index');
-    Route::get('/teachers', 'teachers')->name('jobs.teachers');
-});
-
 Route::middleware('auth')->controller(JobController::class)->group(function () {
     Route::get('/jobs/create', 'create')->name('jobs.create');
     Route::post('/jobs', 'store')->name('jobs.store');
 });
 
+Route::controller(JobController::class)->group(function () {
+    Route::get('/', 'index')->name('home');
+    Route::get('/jobs', 'index')->name('jobs.index');
+    Route::get('/jobs/{job}', 'show')->name('jobs.show');
+    Route::get('/teachers', 'teachers')->name('jobs.teachers');
+});
+
 Route::middleware('auth')->controller(\App\Http\Controllers\User\ProfileController::class)->group(function () {
-    Route::get('/profile', 'show')->name('profile.edit');
+    Route::get('/profile', 'show')->name('profile.show');
+    Route::get('/profile/edit', 'edit')->name('profile.edit');
+    Route::patch('/profile', 'update')->name('profile.update');
 });
 
 Route::middleware('auth')->group(function () {
+    Route::post('/jobs/{job}/bookmark', [\App\Http\Controllers\BookmarkController::class, 'toggle'])->name('jobs.bookmark');
+    Route::get('/bookmarks', [\App\Http\Controllers\BookmarkController::class, 'index'])->name('bookmarks.index');
+
+    Route::post('/notifications/{id}/read', function ($id) {
+        auth()->user()->unreadNotifications->where('id', $id)->markAsRead();
+        return back();
+    })->name('notifications.read');
+
     Route::get('/books', [JobController::class, 'books'])->name('jobs.books');
     Route::get('/academic', [JobController::class, 'academic'])->name('jobs.academic');
     Route::get('/hadith', [JobController::class, 'books'])->name('jobs.hadith');
@@ -48,9 +59,11 @@ Route::middleware(['auth', 'admin'])->prefix('admin')->name('admin.')->controlle
     });
 });
 
-Route::get('/search', SearchController::class);
+Route::get('/search', SearchController::class)->name('search');
 
-Route::get('/tags/{tag:name}', TagController::class);
+Route::get('/tags/{tag:name}', TagController::class)->name('tags');
+
+Route::get('/employers/{employer}', [\App\Http\Controllers\EmployerController::class, 'show'])->name('employers.show');
 
 Route::middleware('guest')->group(function () {
     Route::get('/register', [RegisterUserController::class, 'create'])->name('register');

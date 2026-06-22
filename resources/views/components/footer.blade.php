@@ -15,10 +15,10 @@
                 <div>
                     <h3 class="text-sm font-bold text-white mb-3 sm:mb-4 uppercase tracking-wide">Navigation</h3>
                     <ul class="space-y-2">
-                        <li><a href="/" class="text-xs sm:text-sm text-white/70 hover:text-cyan-400 transition-colors">Home</a></li>
-                        <li><a href="/teachers" class="text-xs sm:text-sm text-white/70 hover:text-cyan-400 transition-colors">Teachers</a></li>
-                        <li><a href="/books" class="text-xs sm:text-sm text-white/70 hover:text-cyan-400 transition-colors">Quran</a></li>
-                        <li><a href="/academic" class="text-xs sm:text-sm text-white/70 hover:text-cyan-400 transition-colors">Academic</a></li>
+                        <li><a href="{{ route('home') }}" class="text-xs sm:text-sm text-white/70 hover:text-cyan-400 transition-colors">Home</a></li>
+                        <li><a href="{{ route('jobs.teachers') }}" class="text-xs sm:text-sm text-white/70 hover:text-cyan-400 transition-colors">Teachers</a></li>
+                        <li><a href="{{ route('jobs.books') }}" class="text-xs sm:text-sm text-white/70 hover:text-cyan-400 transition-colors">Quran</a></li>
+                        <li><a href="{{ route('jobs.academic') }}" class="text-xs sm:text-sm text-white/70 hover:text-cyan-400 transition-colors">Academic</a></li>
                     </ul>
                 </div>
 
@@ -26,11 +26,11 @@
                 <div>
                     <h3 class="text-sm font-bold text-white mb-3 sm:mb-4 uppercase tracking-wide">Resources</h3>
                     <ul class="space-y-2">
-                        <li><a href="/hadith" class="text-xs sm:text-sm text-white/70 hover:text-cyan-400 transition-colors">Hadith</a></li>
-                        <li><a href="/duas" class="text-xs sm:text-sm text-white/70 hover:text-cyan-400 transition-colors">Du'as</a></li>
-                        <li><a href="/prayers" class="text-xs sm:text-sm text-white/70 hover:text-cyan-400 transition-colors">Prayers</a></li>
+                        <li><a href="{{ route('jobs.hadith') }}" class="text-xs sm:text-sm text-white/70 hover:text-cyan-400 transition-colors">Hadith</a></li>
+                        <li><a href="{{ route('jobs.duas') }}" class="text-xs sm:text-sm text-white/70 hover:text-cyan-400 transition-colors">Du'as</a></li>
+                        <li><a href="{{ route('jobs.prayers') }}" class="text-xs sm:text-sm text-white/70 hover:text-cyan-400 transition-colors">Prayers</a></li>
                         @auth
-                        <li><a href="/jobs/create" class="text-xs sm:text-sm text-white/70 hover:text-cyan-400 transition-colors">Post a Job</a></li>
+                        <li><a href="{{ route('jobs.create') }}" class="text-xs sm:text-sm text-white/70 hover:text-cyan-400 transition-colors">Post a Job</a></li>
                         @endauth
                     </ul>
                 </div>

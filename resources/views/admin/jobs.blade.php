@@ -65,9 +65,16 @@
                                     ];
                                     $currentStatus = $job->status ?? ($job->is_approved ? 'approved' : 'pending');
                                 @endphp
-                                <span class="inline-flex items-center rounded-full border px-2.5 py-0.5 text-xs font-medium {{ $statusClasses[$currentStatus] ?? $statusClasses['pending'] }}">
-                                    {{ ucfirst($currentStatus) }}
-                                </span>
+                                <div class="flex flex-col gap-1">
+                                    <span class="inline-flex items-center w-fit rounded-full border px-2.5 py-0.5 text-xs font-medium {{ $statusClasses[$currentStatus] ?? $statusClasses['pending'] }}">
+                                        {{ ucfirst($currentStatus) }}
+                                    </span>
+                                    @if($currentStatus === 'rejected' && $job->rejection_reason)
+                                        <span class="text-[10px] text-red-400/80 max-w-[150px] truncate" title="{{ $job->rejection_reason }}">
+                                            Reason: {{ $job->rejection_reason }}
+                                        </span>
+                                    @endif
+                                </div>
                             </td>
                             <td class="px-6 py-4">
                                 <div class="flex items-center gap-2">
@@ -85,10 +92,19 @@
                                         </button>
                                     </form>
 
-                                    <form action="{{ route('admin.jobs.reject', $job->id) }}" method="POST">
+                                    <form x-data="{
+                                        reject() {
+                                            let reason = prompt('Please enter rejection reason:');
+                                            if (reason) {
+                                                $refs.reasonInput.value = reason;
+                                                $el.submit();
+                                            }
+                                        }
+                                    }" action="{{ route('admin.jobs.reject', $job->id) }}" method="POST" @submit.prevent="reject()">
                                         @csrf
                                         @method('PATCH')
 
+                                        <input type="hidden" name="rejection_reason" x-ref="reasonInput">
                                         <button
                                             type="submit"
                                             class="px-3 py-1 rounded text-white text-xs font-semibold transition-colors
@@ -172,10 +188,19 @@
                                 </button>
                             </form>
 
-                            <form action="{{ route('admin.jobs.reject', $job->id) }}" method="POST">
+                            <form x-data="{
+                                        reject() {
+                                            let reason = prompt('Please enter rejection reason:');
+                                            if (reason) {
+                                                $refs.reasonInput.value = reason;
+                                                $el.submit();
+                                            }
+                                        }
+                                    }" action="{{ route('admin.jobs.reject', $job->id) }}" method="POST" @submit.prevent="reject()">
                                 @csrf
                                 @method('PATCH')
 
+                                <input type="hidden" name="rejection_reason" x-ref="reasonInput">
                                 <button
                                     type="submit"
                                     class="px-4 py-2 rounded text-white text-xs font-bold transition-all

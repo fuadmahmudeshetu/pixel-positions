@@ -66,7 +66,7 @@
                 <a href="{{ route('jobs.teachers') }}" class="w-full rounded-lg bg-blue-600 px-6 py-2.5 text-sm font-bold text-white hover:bg-blue-500 transition-all duration-200 shadow-lg shadow-blue-900/20 hover:shadow-blue-900/30 sm:w-auto sm:px-8 sm:py-3 sm:text-base hover:scale-105">
                     Connect with Teachers
                 </a>
-                <a href="/" class="w-full rounded-lg border border-white/20 px-6 py-2.5 text-sm font-semibold text-white hover:bg-white/5 hover:border-white/40 transition-all duration-200 sm:w-auto sm:px-8 sm:py-3 sm:text-base">
+                <a href="{{ route('home') }}" class="w-full rounded-lg border border-white/20 px-6 py-2.5 text-sm font-semibold text-white hover:bg-white/5 hover:border-white/40 transition-all duration-200 sm:w-auto sm:px-8 sm:py-3 sm:text-base">
                     Return to Homepage
                 </a>
             </div>

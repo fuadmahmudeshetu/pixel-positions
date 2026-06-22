@@ -3,7 +3,7 @@
         Register
     </x-page-heading>
 
-    <x-forms.form method="POST" action="/register" enctype="multipart/form-data" x-data="{ role: '{{ old('role') }}' }">
+    <x-forms.form method="POST" action="{{ route('register.store') }}" enctype="multipart/form-data" x-data="{ role: '{{ old('role') }}' }">
 
         <x-forms.input label="Name" name="name" placeholder="John Doe" />
         <x-forms.select label="Role" name="role" x-model="role">

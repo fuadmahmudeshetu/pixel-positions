@@ -3,7 +3,7 @@
         Login
     </x-page-heading>
 
-    <x-forms.form method="POST" action="/login" enctype="multipart/form-data">
+    <x-forms.form method="POST" action="{{ route('login.store') }}" enctype="multipart/form-data">
 
         <x-forms.input label="Email" name="email" type="email" placeholder="you@example.com" />
 

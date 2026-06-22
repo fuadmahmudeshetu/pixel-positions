@@ -1,6 +1,6 @@
 <nav class="border-b border-white/10 py-4">
     <div class="flex items-center justify-between gap-4">
-        <a href="/" class="shrink-0">
+        <a href="{{ route('home') }}" class="shrink-0">
             <img src="{{ Vite::asset('resources/images/logo.svg') }}" alt="Pixel Positions Logo" class="w-24">
         </a>
 
@@ -11,27 +11,27 @@
                 <a href="{{ route('admin.jobs') }}" class="hover:text-cyan-400">Jobs</a>
                 <a href="{{ route('home') }}" class="hover:text-cyan-400">Main Site</a>
             @else
-                <a href="/" class="hover:text-cyan-400">Home</a>
-                <a href="/teachers" class="hover:text-cyan-400">Teachers</a>
-                <a href="/books" class="hover:text-cyan-400">Quran</a>
-                <a href="/academic" class="hover:text-cyan-400">Academic</a>
-                <a href="/hadith" class="hover:text-cyan-400">Hadith</a>
-                <a href="/duas" class="hover:text-cyan-400">Du'as</a>
-                <a href="/prayers" class="hover:text-cyan-400">Prayers</a>
+                <a href="{{ route('home') }}" class="hover:text-cyan-400">Home</a>
+                <a href="{{ route('jobs.teachers') }}" class="hover:text-cyan-400">Teachers</a>
+                <a href="{{ route('jobs.books') }}" class="hover:text-cyan-400">Quran</a>
+                <a href="{{ route('jobs.academic') }}" class="hover:text-cyan-400">Academic</a>
+                <a href="{{ route('jobs.hadith') }}" class="hover:text-cyan-400">Hadith</a>
+                <a href="{{ route('jobs.duas') }}" class="hover:text-cyan-400">Du'as</a>
+                <a href="{{ route('jobs.prayers') }}" class="hover:text-cyan-400">Prayers</a>
             @endif
         </div>
 
         <div class="hidden items-center gap-6 md:flex">
             @auth
                 @if(auth()->user()->role === 'teacher' || auth()->user()->role === 'employer')
-                    <a href="/jobs/create" class="hover:text-cyan-400">Post a job</a>
+                    <a href="{{ route('jobs.create') }}" class="hover:text-cyan-400">Post a job</a>
                 @endif
 
                 @if(auth()->user()->role !== 'admin')
-                    <a href="/profile" class="hover:text-cyan-400">Profile</a>
+                    <a href="{{ route('profile.show') }}" class="hover:text-cyan-400">Profile</a>
                 @endif
 
-                <form action="/logout" method="POST">
+                <form action="{{ route('logout') }}" method="POST">
                     @csrf
                     @method('DELETE')
                     <button type="submit" class="cursor-pointer text-blue-500 hover:text-blue-700">Logout</button>
@@ -60,23 +60,23 @@
                         <a href="{{ route('admin.jobs') }}" class="hover:text-cyan-400">Jobs</a>
                         <a href="{{ route('home') }}" class="hover:text-cyan-400">Main Site</a>
                     @else
-                        <a href="/" class="hover:text-cyan-400">Home</a>
-                        <a href="/teachers" class="hover:text-cyan-400">Teachers</a>
-                        <a href="/books" class="hover:text-cyan-400">Quran</a>
-                        <a href="/academic" class="hover:text-cyan-400">Academic</a>
-                        <a href="/hadith" class="hover:text-cyan-400">Hadith</a>
-                        <a href="/duas" class="hover:text-cyan-400">Du'as</a>
-                        <a href="/prayers" class="hover:text-cyan-400">Prayers</a>
+                        <a href="{{ route('home') }}" class="hover:text-cyan-400">Home</a>
+                        <a href="{{ route('jobs.teachers') }}" class="hover:text-cyan-400">Teachers</a>
+                        <a href="{{ route('jobs.books') }}" class="hover:text-cyan-400">Quran</a>
+                        <a href="{{ route('jobs.academic') }}" class="hover:text-cyan-400">Academic</a>
+                        <a href="{{ route('jobs.hadith') }}" class="hover:text-cyan-400">Hadith</a>
+                        <a href="{{ route('jobs.duas') }}" class="hover:text-cyan-400">Du'as</a>
+                        <a href="{{ route('jobs.prayers') }}" class="hover:text-cyan-400">Prayers</a>
                     @endif
 
                     <div class="my-1 h-px bg-white/10"></div>
 
                     @auth
                         @if(auth()->user()->role === 'teacher' || auth()->user()->role === 'employer')
-                            <a href="/jobs/create" class="hover:text-cyan-400">Post a job</a>
+                            <a href="{{ route('jobs.create') }}" class="hover:text-cyan-400">Post a job</a>
                         @endif
 
-                        <form action="/logout" method="POST">
+                        <form action="{{ route('logout') }}" method="POST">
                             @csrf
                             @method('DELETE')
                             <button type="submit" class="cursor-pointer text-left text-blue-500 hover:text-blue-700">Logout</button>

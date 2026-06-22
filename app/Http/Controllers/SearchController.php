@@ -9,18 +9,40 @@ class SearchController extends Controller
 {
     public function __invoke()
     {
-        $job = Job::query()
-            ->where('is_approved', true)
-            ->where(function ($query) {
-                $query->where('title', 'like', '%' . request('search') . '%')
-                    ->orWhereHas('employer', function ($query) {
-                        $query->where('name', 'like', '%' . request('search') . '%');
+        $query = Job::query()->with(['employer', 'tags'])->where('is_approved', true);
+
+        if (request('search')) {
+            $query->where(function ($q) {
+                $q->where('title', 'like', '%' . request('search') . '%')
+                    ->orWhereHas('employer', function ($q) {
+                        $q->where('name', 'like', '%' . request('search') . '%');
+                    })
+                    ->orWhereHas('tags', function ($q) {
+                        $q->where('name', 'like', '%' . request('search') . '%');
                     });
-            })
-            ->get();
+            });
+        }
+
+        if (request('location')) {
+            $query->where('location', 'like', '%' . request('location') . '%');
+        }
+
+        if (request('schedule')) {
+            $query->where('schedule', request('schedule'));
+        }
+
+        if (request('teaching_mode')) {
+            $query->where('teaching_mode', request('teaching_mode'));
+        }
+
+        if (request('gender')) {
+            $query->where('gender_preference', request('gender'));
+        }
+
+        $jobs = $query->latest()->get();
 
         return view('jobs.results', [
-            'jobs' => $job,
+            'jobs' => $jobs,
         ]);
     }
 }

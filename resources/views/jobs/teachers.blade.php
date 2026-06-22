@@ -6,9 +6,13 @@
         </x-section-heading>
 
         <div class="mt-6 grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-3 lg:gap-8">
-            @foreach($featuredJobs as $job)
-            <x-job-card :$job />
-            @endforeach
+            @forelse($featuredJobs as $job)
+                <x-job-card :$job />
+            @empty
+                <div class="col-span-full text-center py-10 bg-white/5 rounded-2xl border border-white/10">
+                    <p class="text-gray-400">No featured teachers at the moment.</p>
+                </div>
+            @endforelse
         </div>
 
         <div class="mt-8 flex items-center justify-center">
@@ -21,9 +25,13 @@
         <x-section-heading class="sm:ml-4">Recent Teachers</x-section-heading>
 
         <div class="mt-5 space-y-4 sm:mt-6 sm:space-y-6">
-            @foreach($jobs as $job)
-            <x-job-card-wide :$job />
-            @endforeach
+            @forelse($jobs as $job)
+                <x-job-card-wide :$job />
+            @empty
+                <div class="text-center py-10 bg-white/5 rounded-2xl border border-white/10">
+                    <p class="text-gray-400">No teachers available at the moment.</p>
+                </div>
+            @endforelse
         </div>
 
         <div class="mt-8 flex items-center justify-center">

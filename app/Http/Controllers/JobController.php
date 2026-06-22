@@ -115,6 +115,7 @@ class JobController extends Controller
             'title' => ['required', 'string', 'max:255'],
             'salary' => ['required', 'string'], // Salary is often better as string if it includes currency/formatting
             'location' => ['required', 'string', 'max:255'],
+            'description' => ['required', 'string'],
             'schedule' => ['required', Rule::in(['full-time', 'part-time', 'contract', 'temporary'])],
             'gender_preference' => ['required', Rule::in(['Male', 'Female', 'Any'])],
             'teaching_mode' => ['required', Rule::in(['Online', 'In-person', 'Hybrid'])],
@@ -146,7 +147,9 @@ class JobController extends Controller
      */
     public function show(Job $job)
     {
-        //
+        return view('jobs.show', [
+            'job' => $job
+        ]);
     }
 
     /**
@@ -169,6 +172,7 @@ class JobController extends Controller
         $validatedData = $request->validate([
             'title'    => 'required|string|max:255',
             'location' => 'required|string|max:255',
+            'description' => 'required|string',
             'salary'   => 'required|min:0',
             'phone'    => 'required|string', // Validates Ethiopian phone format
             'tags'     => 'nullable|string',
@@ -180,6 +184,7 @@ class JobController extends Controller
         $job->update([
             'title'    => $validatedData['title'],
             'location' => $validatedData['location'],
+            'description' => $validatedData['description'],
             'salary'   => $validatedData['salary'],
             'gender_preference' => $validatedData['gender_preference'],
             'teaching_mode' => $validatedData['teaching_mode'],

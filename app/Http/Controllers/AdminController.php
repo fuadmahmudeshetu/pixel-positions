@@ -74,21 +74,36 @@ class AdminController extends Controller
         return redirect()->route('admin.users.')->with('success', 'User deleted successfully.');
     }
 
-    public function approve(Job $job) {
+    public function approve(Job $job)
+    {
         $job->update([
             'is_approved' => true,
             'status' => 'approved'
         ]);
 
+        if ($job->employer && $job->employer->user) {
+            $job->employer->user->notify(new \App\Notifications\JobStatusChanged($job));
+        }
+
         return redirect()->back()->with('success', 'Job approved successfully.');
     }
 
-    public function reject(Job $job) {
-        $job->update([
-            'is_approved' => false,
-            'status' => 'rejected'
+    public function reject(Request $request, Job $job)
+    {
+        $validated = $request->validate([
+            'rejection_reason' => 'required|string|max:1000'
         ]);
 
-        return redirect()->back()->with('success', 'Job rejected successfully.');
+        $job->update([
+            'is_approved' => false,
+            'status' => 'rejected',
+            'rejection_reason' => $validated['rejection_reason']
+        ]);
+
+        if ($job->employer && $job->employer->user) {
+            $job->employer->user->notify(new \App\Notifications\JobStatusChanged($job));
+        }
+
+        return redirect()->back()->with('success', 'Job rejected with reason.');
     }
 }

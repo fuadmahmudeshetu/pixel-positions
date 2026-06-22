@@ -14,6 +14,6 @@ if ($size === 'small') {
 
 @endphp
 
-<a href="/tags/{{ strtolower($tag->name) }}" class="{{ $classes }}">
+<a href="{{ route('tags', $tag->name) }}" class="{{ $classes }}">
     {{ $tag->name }}
 </a>
