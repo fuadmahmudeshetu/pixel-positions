@@ -106,6 +106,8 @@ class JobController extends Controller
             'salary' => ['required', 'string'], // Salary is often better as string if it includes currency/formatting
             'location' => ['required', 'string', 'max:255'],
             'schedule' => ['required', Rule::in(['full-time', 'part-time', 'contract', 'temporary'])],
+            'gender_preference' => ['required', Rule::in(['Male', 'Female', 'Any'])],
+            'teaching_mode' => ['required', Rule::in(['Online', 'In-person', 'Hybrid'])],
             'url' => ['required', 'string', 'url', 'max:255'],
             'tags' => ['nullable', 'string'], // 1. Change 'array' to 'string'
         ]);
@@ -160,6 +162,8 @@ class JobController extends Controller
             'salary'   => 'required|min:0',
             'phone'    => 'required|string', // Validates Ethiopian phone format
             'tags'     => 'nullable|string',
+            'gender_preference' => ['required', Rule::in(['Male', 'Female', 'Any'])],
+            'teaching_mode' => ['required', Rule::in(['Online', 'In-person', 'Hybrid'])],
         ]);
 
         // 2. Update the Job post fields
@@ -167,6 +171,8 @@ class JobController extends Controller
             'title'    => $validatedData['title'],
             'location' => $validatedData['location'],
             'salary'   => $validatedData['salary'],
+            'gender_preference' => $validatedData['gender_preference'],
+            'teaching_mode' => $validatedData['teaching_mode'],
         ]);
 
         // 3. Update the phone_number directly on the associated User model

@@ -18,6 +18,8 @@ class Job extends Model
         'location',
         'is_approved',
         'schedule',
+        'gender_preference',
+        'teaching_mode',
         'url',
         'status',
         'featured',

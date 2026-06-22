@@ -19,7 +19,7 @@ Route::middleware('auth')->controller(JobController::class)->group(function () {
     Route::post('/jobs', 'store')->name('jobs.store');
 });
 
-Route::middleware('auth')->controller(\App\Http\Controllers\User\ProfileController::Class)->group(function () {
+Route::middleware('auth')->controller(\App\Http\Controllers\User\ProfileController::class)->group(function () {
     Route::get('/profile', 'show')->name('profile.edit');
 });
 
@@ -38,6 +38,7 @@ Route::middleware(['auth', 'admin'])->prefix('admin')->name('admin.')->controlle
     Route::get('/dashboard', 'index')->name('dashboard');
     Route::get('/jobs', 'jobs')->name('jobs');
     Route::patch('/jobs/{job}/approve', 'approve')->name('jobs.approve');
+    Route::patch('/jobs/{job}/reject', 'reject')->name('jobs.reject');
 
     Route::prefix('users')->name('users.')->group(function () {
         Route::get('/', 'users')->name('');

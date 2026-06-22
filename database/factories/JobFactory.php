@@ -25,6 +25,8 @@ class JobFactory extends Factory
             'location' => fake()->city(),
             'is_approved' => false,
             'schedule' => 'Full-time',
+            'gender_preference' => 'Any',
+            'teaching_mode' => 'In-person',
             'url' => fake()->url(),
             'status' => 'pending',
             'featured' => false,

@@ -10,8 +10,8 @@
                 {{ $job->title }}
             </a>
         </h3>
-        <p class="mt-3 text-xs text-white/75 sm:mt-4 sm:text-sm">{{ $job->location }}</p>
-        <p class="mt-2">{{ $job->salary }}</p>
+        <p class="mt-3 text-xs text-white/75 sm:mt-4 sm:text-sm">{{ $job->location }} ({{ $job->teaching_mode }})</p>
+        <p class="mt-2 text-sm">{{ $job->salary }} - {{ $job->gender_preference }}</p>
 
         <x-phone-number :job="$job"/>
 

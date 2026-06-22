@@ -12,6 +12,18 @@
             <option value="part-time">Part Time</option>
         </x-forms.select>
 
+        <x-forms.select name="gender_preference" label="Gender Preference">
+            <option value="Any">Any</option>
+            <option value="Male">Male</option>
+            <option value="Female">Female</option>
+        </x-forms.select>
+
+        <x-forms.select name="teaching_mode" label="Teaching Mode">
+            <option value="In-person">In-person</option>
+            <option value="Online">Online</option>
+            <option value="Hybrid">Hybrid</option>
+        </x-forms.select>
+
         <x-forms.input name="url" label="URL" placeholder="https://example.com/job" />
 
         <x-forms.checkbox name="featured" label="Feature (Costs Extra)" />

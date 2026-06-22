@@ -12,7 +12,7 @@
 
         <!-- Change: Added flex-wrap and adjusted margin -->
         <div class="mt-4 flex flex-wrap items-center justify-between gap-y-4 md:mt-auto">
-            <p class="text-sm text-white/75">Full Time - From {{ $job->salary }}</p>
+            <p class="text-sm text-white/75">{{ ucfirst($job->schedule) }} ({{ $job->teaching_mode }}) - {{ $job->gender_preference }} - From {{ $job->salary }}</p>
 
             <!-- Change: Changed justify-end to justify-start for small screens, back to end for md+ -->
             <div class="flex items-center justify-start md:justify-end gap-2 flex-wrap">

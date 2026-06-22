@@ -72,15 +72,20 @@ class AdminController extends Controller
     }
 
     public function approve(Job $job) {
+        $job->update([
+            'is_approved' => true,
+            'status' => 'approved'
+        ]);
 
-        $job->is_approved = !$job->is_approved;
-        $job->save();
+        return redirect()->back()->with('success', 'Job approved successfully.');
+    }
 
-        return redirect()->back()->with(
-            'success',
-            $job->is_approved
-                ? 'Job approved successfully.'
-                : 'Job unapproved successfully.'
-        );
+    public function reject(Job $job) {
+        $job->update([
+            'is_approved' => false,
+            'status' => 'rejected'
+        ]);
+
+        return redirect()->back()->with('success', 'Job rejected successfully.');
     }
 }

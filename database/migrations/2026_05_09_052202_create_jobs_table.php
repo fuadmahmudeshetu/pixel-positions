@@ -20,6 +20,8 @@ return new class extends Migration
             $table->string('location');
             $table->boolean('is_approved')->default(false);
             $table->string('schedule')->default('Full time');
+            $table->string('gender_preference')->default('Any');
+            $table->string('teaching_mode')->default('In-person');
             $table->string('url');
             $table->enum('status', [
                 'pending',

@@ -40,6 +40,28 @@
             </div>
 
             <div>
+                <label for="gender_preference" class="block text-sm font-medium text-gray-400">Gender Preference</label>
+                <select name="gender_preference" id="gender_preference"
+                        class="w-full mt-1 p-2.5 bg-[#1e1e1e] border border-gray-700 rounded-lg text-white focus:ring-2 focus:ring-blue-500 focus:outline-none">
+                    <option value="Any" {{ old('gender_preference', $job->gender_preference) === 'Any' ? 'selected' : '' }}>Any</option>
+                    <option value="Male" {{ old('gender_preference', $job->gender_preference) === 'Male' ? 'selected' : '' }}>Male</option>
+                    <option value="Female" {{ old('gender_preference', $job->gender_preference) === 'Female' ? 'selected' : '' }}>Female</option>
+                </select>
+                @error('gender_preference') <span class="text-xs text-red-500">{{ $message }}</span> @enderror
+            </div>
+
+            <div>
+                <label for="teaching_mode" class="block text-sm font-medium text-gray-400">Teaching Mode</label>
+                <select name="teaching_mode" id="teaching_mode"
+                        class="w-full mt-1 p-2.5 bg-[#1e1e1e] border border-gray-700 rounded-lg text-white focus:ring-2 focus:ring-blue-500 focus:outline-none">
+                    <option value="In-person" {{ old('teaching_mode', $job->teaching_mode) === 'In-person' ? 'selected' : '' }}>In-person</option>
+                    <option value="Online" {{ old('teaching_mode', $job->teaching_mode) === 'Online' ? 'selected' : '' }}>Online</option>
+                    <option value="Hybrid" {{ old('teaching_mode', $job->teaching_mode) === 'Hybrid' ? 'selected' : '' }}>Hybrid</option>
+                </select>
+                @error('teaching_mode') <span class="text-xs text-red-500">{{ $message }}</span> @enderror
+            </div>
+
+            <div>
                 <label for="phone" class="block text-sm font-medium text-gray-400">Contact Phone Number</label>
                 <input type="text" name="phone" id="phone"
                        value="{{ old('phone', $job->employer->user->phone_number) }}"

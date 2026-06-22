@@ -25,6 +25,7 @@
                         <th class="px-6 py-5 font-bold">Employer</th>
                         <th class="px-6 py-5 font-bold">Job Details</th>
                         <th class="px-6 py-5 font-bold">Contact</th>
+                        <th class="px-6 py-5 font-bold">Status</th>
                         <th class="px-6 py-5 font-bold">Action</th>
                     </tr>
                     </thead>
@@ -55,25 +56,54 @@
                                     {{ $job->employer->user->phone_number ?? 'No Phone' }}
                                 </span>
                             </td>
-                            <td>
-                                <form action="{{ route('admin.jobs.approve', $job->id) }}" method="POST">
-                                    @csrf
-                                    @method('PATCH')
+                            <td class="px-6 py-4">
+                                @php
+                                    $statusClasses = [
+                                        'pending' => 'bg-amber-500/10 text-amber-400 border-amber-500/20',
+                                        'approved' => 'bg-emerald-500/10 text-emerald-400 border-emerald-500/20',
+                                        'rejected' => 'bg-red-500/10 text-red-400 border-red-500/20',
+                                    ];
+                                    $currentStatus = $job->status ?? ($job->is_approved ? 'approved' : 'pending');
+                                @endphp
+                                <span class="inline-flex items-center rounded-full border px-2.5 py-0.5 text-xs font-medium {{ $statusClasses[$currentStatus] ?? $statusClasses['pending'] }}">
+                                    {{ ucfirst($currentStatus) }}
+                                </span>
+                            </td>
+                            <td class="px-6 py-4">
+                                <div class="flex items-center gap-2">
+                                    <form action="{{ route('admin.jobs.approve', $job->id) }}" method="POST">
+                                        @csrf
+                                        @method('PATCH')
 
-                                    <button
-                                        type="submit"
-                                        class="px-3 py-1 rounded text-white
-                                        {{ $job->is_approved ? 'bg-gray-500 cursor-not-allowed' : 'bg-green-600 hover:bg-green-700' }}"
-                                        {{ $job->is_approved ? 'disabled' : '' }}
-                                    >
-                                        {{ $job->is_approved ? 'Approved' : 'Approve' }}
-                                    </button>
-                                </form>
+                                        <button
+                                            type="submit"
+                                            class="px-3 py-1 rounded text-white text-xs font-semibold transition-colors
+                                            {{ $job->status === 'approved' ? 'bg-gray-500 cursor-not-allowed' : 'bg-emerald-600 hover:bg-emerald-700 shadow-lg shadow-emerald-500/20' }}"
+                                            {{ $job->status === 'approved' ? 'disabled' : '' }}
+                                        >
+                                            Approve
+                                        </button>
+                                    </form>
+
+                                    <form action="{{ route('admin.jobs.reject', $job->id) }}" method="POST">
+                                        @csrf
+                                        @method('PATCH')
+
+                                        <button
+                                            type="submit"
+                                            class="px-3 py-1 rounded text-white text-xs font-semibold transition-colors
+                                            {{ $job->status === 'rejected' ? 'bg-gray-500 cursor-not-allowed' : 'bg-red-600 hover:bg-red-700 shadow-lg shadow-red-500/20' }}"
+                                            {{ $job->status === 'rejected' ? 'disabled' : '' }}
+                                        >
+                                            Reject
+                                        </button>
+                                    </form>
+                                </div>
                             </td>
                         </tr>
                     @empty
                         <tr>
-                            <td colspan="3" class="px-6 py-20 text-center">
+                            <td colspan="5" class="px-6 py-20 text-center">
                                 <div class="flex flex-col items-center gap-2">
                                     <span class="text-lg font-medium text-gray-400">No jobs available</span>
                                     <p class="text-sm text-gray-600">Try posting a new job to see it here.</p>
@@ -112,20 +142,43 @@
                                 <span
                                     class="text-gray-300">{{ $job->employer?->user?->phone_number ?? 'Deleted User Phone Number', 'N/A' }}</span>
                             </div>
+                            <div class="flex flex-col gap-1">
+                                <span class="text-[10px] uppercase tracking-tighter text-gray-500">Status</span>
+                                @php
+                                    $currentStatus = $job->status ?? ($job->is_approved ? 'approved' : 'pending');
+                                @endphp
+                                <span class="inline-flex items-center w-fit rounded-full border px-2 py-0.5 text-[10px] font-medium {{ $statusClasses[$currentStatus] ?? $statusClasses['pending'] }}">
+                                    {{ ucfirst($currentStatus) }}
+                                </span>
+                            </div>
                         </div>
 
-                        <div class="flex justify-center items-end mt-5">
+                        <div class="flex justify-center gap-3 items-end mt-5">
                             <form action="{{ route('admin.jobs.approve', $job->id) }}" method="POST">
                                 @csrf
                                 @method('PATCH')
 
                                 <button
                                     type="submit"
-                                    class="px-3 py-1 rounded text-white
-                                        {{ $job->is_approved ? 'bg-gray-500 cursor-not-allowed' : 'bg-green-600 hover:bg-green-700' }}"
-                                    {{ $job->is_approved ? 'disabled' : '' }}
+                                    class="px-4 py-2 rounded text-white text-xs font-bold transition-all
+                                        {{ $job->status === 'approved' ? 'bg-gray-500 cursor-not-allowed' : 'bg-emerald-600 active:scale-95 shadow-lg shadow-emerald-500/20' }}"
+                                    {{ $job->status === 'approved' ? 'disabled' : '' }}
                                 >
-                                    {{ $job->is_approved ? 'Approved' : 'Approve' }}
+                                    Approve
+                                </button>
+                            </form>
+
+                            <form action="{{ route('admin.jobs.reject', $job->id) }}" method="POST">
+                                @csrf
+                                @method('PATCH')
+
+                                <button
+                                    type="submit"
+                                    class="px-4 py-2 rounded text-white text-xs font-bold transition-all
+                                        {{ $job->status === 'rejected' ? 'bg-gray-500 cursor-not-allowed' : 'bg-red-600 active:scale-95 shadow-lg shadow-red-500/20' }}"
+                                    {{ $job->status === 'rejected' ? 'disabled' : '' }}
+                                >
+                                    Reject
                                 </button>
                             </form>
                         </div>

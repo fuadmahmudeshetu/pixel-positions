@@ -9,11 +9,13 @@ class SearchController extends Controller
 {
     public function __invoke()
     {
-        $job = Job::where('title', 'like', '%' . request('search') . '%')
-            ->where('is_approved', 1)
-            ->orWhere('description', 'like', '%' . request('search') . '%')
-            ->orWhereHas('employer', function ($query) {
-                $query->where('name', 'like', '%' . request('search') . '%');
+        $job = Job::query()
+            ->where('is_approved', true)
+            ->where(function ($query) {
+                $query->where('title', 'like', '%' . request('search') . '%')
+                    ->orWhereHas('employer', function ($query) {
+                        $query->where('name', 'like', '%' . request('search') . '%');
+                    });
             })
             ->get();
 
