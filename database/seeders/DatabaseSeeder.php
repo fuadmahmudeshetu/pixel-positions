@@ -2,8 +2,9 @@
 
 namespace Database\Seeders;
 
-use App\Models\User;
 use App\Models\Employer;
+use App\Models\User;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
@@ -16,6 +17,11 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
+        DB::table('job_tag')->delete();
+        DB::table('jobs')->delete();
+        DB::table('employers')->delete();
+        DB::table('users')->delete();
+
         // 1. Create Admin
         User::factory()->admin()->create([
             'name' => 'Kerumi Fa',
@@ -23,13 +29,16 @@ class DatabaseSeeder extends Seeder
             'password' => bcrypt('rumiyas'),
         ]);
 
-        // 2. Create Teachers with Jobs (Jobs have Employers, Employers have Users)
+        // 2. Create 5 Teachers with Employers
+        User::factory(5)->teacher()->create()
+            ->each(fn (User $user) => Employer::factory()->create([
+                'user_id' => $user->id,
+            ]));
+
+        // 3. Create 5 Students
+        User::factory(5)->student()->create();
+
+        // 4. Create Jobs for the existing Teachers
         $this->call(JobSeeder::class);
-
-        // 3. Create some Students
-        User::factory(10)->student()->create();
-
-        // 4. Create some standalone Teachers (with Employers)
-        Employer::factory(5)->create();
     }
 }
