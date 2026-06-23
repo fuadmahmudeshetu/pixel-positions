@@ -19,8 +19,8 @@ class EmployerFactory extends Factory
     public function definition(): array
     {
         return [
-            'name' => fake()->company(),
-            'logo' => fake()->imageUrl(),
+            'name' => $this->faker->company(),
+            'logo' => $this->faker->imageUrl(),
             'user_id' => User::factory()->teacher(),
         ];
     }

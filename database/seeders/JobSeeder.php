@@ -22,9 +22,9 @@ class JobSeeder extends Seeder
                 'featured' => $sequence->index % 4 === 0,
                 'is_approved' => true,
                 'status' => 'approved',
-                'schedule' => fake()->randomElement(['full-time', 'part-time', 'contract']),
-                'teaching_mode' => fake()->randomElement(['Online', 'In-person', 'Hybrid']),
-                'gender_preference' => fake()->randomElement(['Male', 'Female', 'Any']),
+                'schedule' => \fake()->randomElement(['full-time', 'part-time', 'contract']),
+                'teaching_mode' => \fake()->randomElement(['Online', 'In-person', 'Hybrid']),
+                'gender_preference' => \fake()->randomElement(['Male', 'Female', 'Any']),
             ]
         ))->each(function ($job) use ($tags) {
             $job->tags()->attach($tags->random(rand(1, 3))->pluck('id'));
