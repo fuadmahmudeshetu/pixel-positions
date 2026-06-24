@@ -7,6 +7,7 @@ use App\Models\User;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\Schema;
 
 class DatabaseSeeder extends Seeder
 {
@@ -17,6 +18,14 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
+        if (Schema::hasTable('notifications')) {
+            DB::table('notifications')->delete();
+        }
+
+        if (Schema::hasTable('bookmarks')) {
+            DB::table('bookmarks')->delete();
+        }
+
         DB::table('job_tag')->delete();
         DB::table('jobs')->delete();
         DB::table('employers')->delete();

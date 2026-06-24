@@ -227,9 +227,11 @@ class JobController extends Controller
      */
     public function destroy(Job $job)
     {
+        $this->authorize('delete', $job);
+
         $job->delete();
 
-        return redirect()->route('jobs.index')
+        return redirect()->route('home')
             ->with('success', 'Job card deleted successfully!');
     }
 }

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Validation\Rule;
 use Illuminate\Validation\Rules\File;
 
@@ -67,7 +68,7 @@ class RegisterUserController extends Controller
             'email' => 'required|string|email|max:255|unique:users',
             'password' => 'required|string|min:8|confirmed',
             'employer' => ['required_if:role,teacher', 'nullable', 'string', 'max:255'],
-            'logo' => ['required_if:role,teacher', 'nullable', File::types(['jpg', 'jpeg', 'png'])->max(1024)], // Max 1MB
+            'logo' => ['nullable', File::types(['jpg', 'jpeg', 'png'])->max(1024)], // Max 1MB
         ]);
 
         $user = User::create([
@@ -80,7 +81,7 @@ class RegisterUserController extends Controller
         ]);
 
         if ($user->role === 'teacher') {
-            $logoPath = $request->file('logo')->store('logos', 'public');
+            $logoPath = $request->file('logo')?->store('logos', 'public');
 
             $user->employer()->create([
                 'name' => $attributes['employer'],
@@ -88,6 +89,8 @@ class RegisterUserController extends Controller
             ]);
         }
 
-        return redirect()->route('login')->with('success', 'Registration successful. Please login.');
+        Auth::login($user);
+
+        return redirect()->route('home')->with('success', 'Registration successful.');
     }
 }
