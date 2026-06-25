@@ -66,7 +66,6 @@
                         <a href="{{ route('jobs.academic') }}" class="hover:text-cyan-400">Academic</a>
                         <a href="{{ route('jobs.hadith') }}" class="hover:text-cyan-400">Hadith</a>
                         <a href="{{ route('jobs.duas') }}" class="hover:text-cyan-400">Du'as</a>
-                        <a href="{{ route('jobs.profile') }}" class="hover:text-cyan-400">Profile</a>
                         <a href="{{ route('jobs.prayers') }}" class="hover:text-cyan-400">Prayers</a>
                     @endif
 
@@ -75,6 +74,10 @@
                     @auth
                         @if(auth()->user()->role === 'teacher' || auth()->user()->role === 'employer')
                             <a href="{{ route('jobs.create') }}" class="hover:text-cyan-400">Post a job</a>
+                        @endif
+
+                        @if(in_array(auth()->user()->role, ['student', 'teacher', 'employer'], true))
+                            <a href="{{ route('profile.show') }}" class="hover:text-cyan-400">Profile</a>
                         @endif
 
                         <form action="{{ route('logout') }}" method="POST">
