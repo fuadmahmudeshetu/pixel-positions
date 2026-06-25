@@ -5,7 +5,7 @@
 
     <x-forms.form method="POST" action="{{ route('register.store') }}" enctype="multipart/form-data" x-data="{ role: '{{ old('role') }}' }">
 
-        <x-forms.input label="Name" name="name" placeholder="John Doe" />
+        <x-forms.input label="Name" name="name" placeholder="Meru Fuad" />
         <x-forms.select label="Role" name="role" x-model="role">
             <option value="">Account Type</option>
             <option value="teacher">Teacher</option>
@@ -13,7 +13,7 @@
         </x-forms.select>
         <x-forms.input label="Phone Number ( WhatsApp )" name="phone_number" placeholder="+251/0912345678" />
 
-        <x-forms.input label="National ID (FAN)" name="national_id" placeholder="123456789" />
+        <x-forms.input label="National ID (FAN)" name="national_id" placeholder="1234567891234567" />
 
         <x-forms.input label="Email" name="email" type="email" placeholder="you@example.com" />
 
