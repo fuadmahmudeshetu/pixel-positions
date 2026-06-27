@@ -1,4 +1,4 @@
-# Pixel Positions 🌟
+# Noor Learning  🌟
 
 A specialized job board platform designed to connect educators, Islamic studies teachers, and students in a seamless, role-based environment.
 

@@ -52,7 +52,7 @@
                 </h2>
 
                 <p class="mt-3 text-sm leading-6 text-white/65">
-                    Return to the main feed and explore the latest opportunities in the Pixel Positions workspace.
+                    Return to the main feed and explore the latest opportunities in the Noor Learning workspace.
                 </p>
             </div>
 

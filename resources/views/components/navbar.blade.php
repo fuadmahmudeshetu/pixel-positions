@@ -1,7 +1,7 @@
 <nav class="border-b border-white/10 py-4">
     <div class="flex items-center justify-between gap-4">
         <a href="{{ route('home') }}" class="shrink-0">
-            <img src="{{ Vite::asset('resources/images/logo.svg') }}" alt="Pixel Positions Logo" class="w-24">
+            <img src="{{ Vite::asset('resources/images/logo.svg') }}" alt="Noor Learning Logo" class="w-24">
         </a>
 
         <div class="hidden items-center gap-6 font-bold md:flex">

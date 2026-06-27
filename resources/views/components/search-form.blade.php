@@ -6,8 +6,14 @@
         <x-forms.input :label="false" name="search" :value="request('search')" placeholder="Search teachers..." class="w-full max-w-full rounded-xl border-white/10 bg-white/5 py-3 pl-12 pr-4 sm:px-5 sm:py-4 sm:pl-12" />
         
         <button type="button" @click="showFilters = !showFilters" class="absolute right-3 top-1/2 -translate-y-1/2 text-white/40 hover:text-white transition">
-            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 4a1 1 0 011-1h16a1 1 0 011 1v2.586a1 1 0 01-.293.707l-6.414 6.414a1 1 0 00-.293.707V17l-4 4v-6.586a1 1 0 00-.293-.707L3.293 7.293A1 1 0 013 6.586V4z" />
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
+                <path stroke-linecap="round" stroke-width="2.6" d="M3 6h18M3 12h18M3 18h18" />
+                <circle cx="9" cy="6" r="2.7" fill="currentColor" stroke="none" />
+                <circle cx="16" cy="12" r="2.7" fill="currentColor" stroke="none" />
+                <circle cx="10" cy="18" r="2.7" fill="currentColor" stroke="none" />
+                <circle cx="9" cy="6" r="1.35" fill="white" stroke="none" />
+                <circle cx="16" cy="12" r="1.35" fill="white" stroke="none" />
+                <circle cx="10" cy="18" r="1.35" fill="white" stroke="none" />
             </svg>
         </button>
     </div>

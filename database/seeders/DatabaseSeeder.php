@@ -4,8 +4,8 @@ namespace Database\Seeders;
 
 use App\Models\Employer;
 use App\Models\User;
-use Illuminate\Support\Facades\DB;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\Schema;
 
@@ -39,15 +39,16 @@ class DatabaseSeeder extends Seeder
         ]);
 
         // 2. Create 5 Teachers with Employers
-        User::factory(5)->teacher()->create()
+        User::factory(1)->teacher()->create()
             ->each(fn (User $user) => Employer::factory()->create([
                 'user_id' => $user->id,
             ]));
 
         // 3. Create 5 Students
-        User::factory(5)->student()->create();
+        User::factory(1)->student()->create();
 
         // 4. Create Jobs for the existing Teachers
         $this->call(JobSeeder::class);
     }
 }
+

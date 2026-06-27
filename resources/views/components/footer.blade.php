@@ -12,7 +12,6 @@
                 <!-- Brand Section -->
                 <div class="col-span-2 sm:col-span-2 lg:col-span-1">
                     <div class="flex items-center gap-3 mb-3">
-                        <img src="{{ Vite::asset('resources/images/logo.svg') }}" alt="Pixel Positions Logo" class="w-10 h-10 sm:w-12 sm:h-12 object-contain drop-shadow-lg">
                         <span class="text-xl font-bold text-white/90 tracking-tight">Noor<span class="text-cyan-400">Learning</span></span>
                     </div>
                     <p class="text-xs sm:text-sm text-white/60 leading-relaxed max-w-xs">
@@ -45,7 +44,7 @@
                         <li><a href="{{ route('jobs.duas') }}" class="text-xs sm:text-sm text-white/60 hover:text-cyan-300 transition-all duration-200 flex items-center gap-2 hover:translate-x-1"><span class="text-cyan-400/50 text-[10px]">✦</span> Du'as</a></li>
                         <li><a href="{{ route('jobs.prayers') }}" class="text-xs sm:text-sm text-white/60 hover:text-cyan-300 transition-all duration-200 flex items-center gap-2 hover:translate-x-1"><span class="text-cyan-400/50 text-[10px]">✦</span> Prayers</a></li>
                         @auth
-                            <li><a href="{{ route('jobs.create') }}" class="text-xs sm:text-sm text-white/60 hover:text-cyan-300 transition-all duration-200 flex items-center gap-2 hover:translate-x-1"><span class="text-cyan-400/50 text-[10px]">✦</span> Post a Job</a></li>
+                        <li><a href="{{ route('jobs.create') }}" class="text-xs sm:text-sm text-white/60 hover:text-cyan-300 transition-all duration-200 flex items-center gap-2 hover:translate-x-1"><span class="text-cyan-400/50 text-[10px]">✦</span> Post a Job</a></li>
                         @endauth
                     </ul>
                 </div>
@@ -54,21 +53,24 @@
                 <div>
                     <h3 class="text-xs font-bold text-white/80 mb-3 sm:mb-4 uppercase tracking-wider border-b border-white/5 pb-2">Connect</h3>
                     <ul class="space-y-2.5">
-                        <li><a href="#" class="text-xs sm:text-sm text-white/60 hover:text-cyan-300 transition-all duration-200 flex items-center gap-2 hover:translate-x-1 group"><span class="text-cyan-400/50 group-hover:text-cyan-300 transition">▶</span> Twitter</a></li>
-                        <li><a href="#" class="text-xs sm:text-sm text-white/60 hover:text-cyan-300 transition-all duration-200 flex items-center gap-2 hover:translate-x-1 group"><span class="text-cyan-400/50 group-hover:text-cyan-300 transition">▶</span> LinkedIn</a></li>
-                        <li><a href="#" class="text-xs sm:text-sm text-white/60 hover:text-cyan-300 transition-all duration-200 flex items-center gap-2 hover:translate-x-1 group"><span class="text-cyan-400/50 group-hover:text-cyan-300 transition">▶</span> Facebook</a></li>
-                        <li><a href="#" class="text-xs sm:text-sm text-white/60 hover:text-cyan-300 transition-all duration-200 flex items-center gap-2 hover:translate-x-1 group"><span class="text-cyan-400/50 group-hover:text-cyan-300 transition">▶</span> Instagram</a></li>
+                        <li><a href="https://twitter.com" target="_blank" rel="noopener noreferrer" class="text-xs sm:text-sm text-white/60 hover:text-cyan-300 transition-all duration-200 flex items-center gap-2 hover:translate-x-1 group"><span class="text-cyan-400/50 group-hover:text-cyan-300 transition">▶</span> Twitter</a></li>
+
+                        <li><a href="https://www.linkedin.com" target="_blank" rel="noopener noreferrer" class="text-xs sm:text-sm text-white/60 hover:text-cyan-300 transition-all duration-200 flex items-center gap-2 hover:translate-x-1 group"><span class="text-cyan-400/50 group-hover:text-cyan-300 transition">▶</span> LinkedIn</a></li>
+
+                        <li><a href="https://www.facebook.com" target="_blank" rel="noopener noreferrer" class="text-xs sm:text-sm text-white/60 hover:text-cyan-300 transition-all duration-200 flex items-center gap-2 hover:translate-x-1 group"><span class="text-cyan-400/50 group-hover:text-cyan-300 transition">▶</span> Facebook</a></li>
+
+                        <li><a href="https://www.instagram.com" target="_blank" rel="noopener noreferrer" class="text-xs sm:text-sm text-white/60 hover:text-cyan-300 transition-all duration-200 flex items-center gap-2 hover:translate-x-1 group"><span class="text-cyan-400/50 group-hover:text-cyan-300 transition">▶</span> Instagram</a></li>
                     </ul>
                 </div>
             </div>
 
             <!-- Footer Divider with gradient -->
-            <div class="my-8 sm:my-10 h-px bg-gradient-to-r from-transparent via-white/15 to-transparent"></div>
+            <div class="my-8 sm:my-10 h-px bg-linear-to-r from-transparent via-white/15 to-transparent"></div>
 
             <!-- Footer Bottom - enhanced with subtle glow and responsive flex -->
             <div class="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
                 <p class="text-xs sm:text-sm text-white/40 font-light tracking-wide">
-                    &copy; 2026 <span class="text-white/60">Pixel Positions</span>. All rights reserved.
+                    &copy; 2026 <span class="text-white/60">Noor Learning</span>. All rights reserved.
                 </p>
                 <div class="flex gap-6 text-xs sm:text-sm">
                     <a href="#" class="text-white/40 hover:text-cyan-300 transition-colors duration-300 relative after:absolute after:left-0 after:-bottom-1 after:h-[1px] after:w-0 after:bg-cyan-400 after:transition-all hover:after:w-full">Privacy Policy</a>
