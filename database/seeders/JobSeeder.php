@@ -21,7 +21,7 @@ class JobSeeder extends Seeder
             ->map(fn($name) => Tag::firstOrCreate(['name' => $name]));
         $employers = Employer::query()->get();
 
-        Job::factory(20)->create(new Sequence(
+        Job::factory(1)->create(new Sequence(
             fn($sequence) => [
                 'employer_id' => $employers->random()->id,
                 'featured' => $sequence->index % 4 === 0,
@@ -36,7 +36,7 @@ class JobSeeder extends Seeder
         });
 
         // Add some pending jobs
-        Job::factory(5)->create([
+        Job::factory(1)->create([
             'employer_id' => $employers->random()->id,
             'is_approved' => false,
             'status' => 'pending',
