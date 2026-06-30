@@ -32,7 +32,6 @@
                         <th class="px-6 py-5 font-bold">ID</th>
                         <th class="px-6 py-5 font-bold">User Details</th>
                         <th class="px-6 py-5 font-bold">Role</th>
-                        <th class="px-6 py-5 font-bold">National ID</th>
                         <th class="px-6 py-5 font-bold">Contact Info</th>
                         <th class="px-6 py-5 font-bold">Action</th>
                     </tr>
@@ -61,11 +60,7 @@
                                     {{ ucfirst($user->role) }}
                                 </span>
                             </td>
-                            <td class="px-6 py-4">
-                                <span class="text-xs font-mono text-gray-400">
-                                    {{ $user->national_id ?? 'N/A' }}
-                                </span>
-                            </td>
+
                             <td class="px-6 py-4 text-gray-400">
                                 <div class="flex flex-col">
                                     <span>{{ $user->email }}</span>
@@ -93,7 +88,7 @@
                         </tr>
                     @empty
                         <tr>
-                            <td colspan="4" class="px-6 py-20 text-center">
+                            <td colspan="5" class="px-6 py-20 text-center">
                                 <div class="flex flex-col items-center gap-2">
                                     <span class="text-lg font-medium text-gray-400">No users available</span>
                                     <p class="text-sm text-gray-600">Try adding a new user to see them here.</p>
@@ -133,10 +128,7 @@
                                 <span class="text-[10px] uppercase tracking-tighter text-gray-500">Phone</span>
                                 <span class="text-gray-300">{{ $user->phone_number ?? 'N/A' }}</span>
                             </div>
-                            <div class="flex flex-col gap-1">
-                                <span class="text-[10px] uppercase tracking-tighter text-gray-500">National ID</span>
-                                <span class="text-gray-300">{{ $user->national_id ?? 'N/A' }}</span>
-                            </div>
+
                             <div class="flex flex-col gap-1 text-right">
                                 <span class="text-[10px] uppercase tracking-tighter text-gray-500">ID</span>
                                 <span class="text-gray-300">#{{ $user->id }}</span>

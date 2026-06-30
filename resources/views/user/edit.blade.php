@@ -7,7 +7,6 @@
         <x-forms.input name="name" label="Name" :value="old('name', $user->name)" />
         <x-forms.input name="email" label="Email" :value="old('email', $user->email)" />
         <x-forms.input name="phone_number" label="Phone Number (WhatsApp)" :value="old('phone_number', $user->phone_number)" />
-        <x-forms.input name="national_id" label="National ID (FAN)" :value="old('national_id', $user->national_id)" />
         
         <x-forms.divider />
         

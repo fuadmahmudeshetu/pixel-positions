@@ -64,7 +64,6 @@ class RegisterUserController extends Controller
             'name' => 'required|string|max:255',
             'role' => ['required', Rule::in(['student', 'teacher'])],
             'phone_number' => 'required|string|unique:users',
-            'national_id' => 'required|string|unique:users',
             'email' => 'required|string|email|max:255|unique:users',
             'password' => 'required|string|min:8|confirmed',
             'employer' => ['required_if:role,teacher', 'nullable', 'string', 'max:255'],
@@ -75,7 +74,6 @@ class RegisterUserController extends Controller
             'name' => $attributes['name'],
             'role' => $attributes['role'],
             'phone_number' => $attributes['phone_number'],
-            'national_id' => $attributes['national_id'],
             'email' => $attributes['email'],
             'password' => bcrypt($attributes['password']),
         ]);

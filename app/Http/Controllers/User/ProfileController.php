@@ -45,7 +45,6 @@ class ProfileController extends Controller
             'name' => ['required', 'string', 'max:255'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users,email,' . $user->id],
             'phone_number' => ['required', 'string', 'max:255', 'unique:users,phone_number,' . $user->id],
-            'national_id' => ['required', 'string', 'max:255', 'unique:users,national_id,' . $user->id],
             'password' => ['nullable', 'string', 'min:8', 'confirmed'],
         ]);
 

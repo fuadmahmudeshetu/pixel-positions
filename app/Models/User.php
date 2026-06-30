@@ -17,7 +17,6 @@ use Illuminate\Notifications\Notifiable;
     'name',
     'role',
     'phone_number',
-    'national_id',
     'email',
     'password',
 ])]

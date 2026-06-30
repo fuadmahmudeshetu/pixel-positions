@@ -13,8 +13,6 @@
         </x-forms.select>
         <x-forms.input label="Phone Number ( WhatsApp )" name="phone_number" placeholder="+251/0912345678" />
 
-        <x-forms.input label="National ID (FAN)" name="national_id" placeholder="1234567891234567" />
-
         <x-forms.input label="Email" name="email" type="email" placeholder="you@example.com" />
 
         <x-forms.input label="Password" name="password" type="password" placeholder="••••••••" />

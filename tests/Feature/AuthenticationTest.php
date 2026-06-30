@@ -15,7 +15,6 @@ test('guest can register as a student', function () {
         'password_confirmation' => 'password',
         'role' => 'student',
         'phone_number' => '1234567890',
-        'national_id' => 'STU123',
     ]);
 
     $this->assertAuthenticated();
@@ -33,7 +32,6 @@ test('guest can register as a teacher', function () {
         'password_confirmation' => 'password',
         'role' => 'teacher',
         'phone_number' => '0987654321',
-        'national_id' => 'TEA123',
         'employer' => 'Test School',
     ]);
 

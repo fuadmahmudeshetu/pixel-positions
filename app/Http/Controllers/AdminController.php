@@ -58,7 +58,6 @@ class AdminController extends Controller
             'name' => ['required', 'string', 'max:255'],
             'email' => ['required', 'email', 'max:255', 'unique:users,email,' . $user->id],
             'phone_number' => ['required', 'string', 'max:30', 'unique:users,phone_number,' . $user->id],
-            'national_id' => ['required', 'string', 'max:255', 'unique:users,national_id,' . $user->id],
             'role' => ['required', 'string', 'in:student,teacher,admin'],
         ]);
 
