@@ -30,5 +30,9 @@
         </div>
 
         <x-forms.button>Create Account</x-forms.button>
+
+        <div class="text-center mt-4">
+            ከዚህ በፊት አካውንት ከፍተዋል? <a href="{{ route('login') }}" class="font-semibold text-cyan-400 hover:text-cyan-300 hover:underline transition-colors">ለመግባት</a>
+        </div>
     </x-forms.form>
 </x-layout>
