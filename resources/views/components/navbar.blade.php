@@ -1,4 +1,4 @@
-<nav class="relative border-b border-white/10 py-4">
+<nav class="sticky top-0 z-50 border-b border-white/10 bg-black/95 py-4 backdrop-blur">
     <div class="flex items-center justify-between gap-4">
         <!-- Minimized Logo Size on Mobile, Scales back up on Desktop -->
         <a href="{{ route('home') }}" class="shrink-0">
